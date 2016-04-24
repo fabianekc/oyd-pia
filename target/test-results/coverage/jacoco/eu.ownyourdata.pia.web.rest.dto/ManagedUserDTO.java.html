@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ManagedUserDTO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest.dto</a> &gt; <span class="el_source">ManagedUserDTO.java</span></div><h1>ManagedUserDTO.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest.dto;
+
+import java.time.ZonedDateTime;
+
+import eu.ownyourdata.pia.domain.User;
+
+/**
+ * A DTO extending the UserDTO, which is meant to be used in the user management UI.
+ */
+public class ManagedUserDTO extends UserDTO {
+
+    private Long id;
+
+    private ZonedDateTime createdDate;
+
+    private String lastModifiedBy;
+
+    private ZonedDateTime lastModifiedDate;
+
+<span class="nc" id="L20">    public ManagedUserDTO() {</span>
+<span class="nc" id="L21">    }</span>
+
+    public ManagedUserDTO(User user) {
+<span class="fc" id="L24">        super(user);</span>
+<span class="fc" id="L25">        this.id = user.getId();</span>
+<span class="fc" id="L26">        this.createdDate = user.getCreatedDate();</span>
+<span class="fc" id="L27">        this.lastModifiedBy = user.getLastModifiedBy();</span>
+<span class="fc" id="L28">        this.lastModifiedDate = user.getLastModifiedDate();</span>
+<span class="fc" id="L29">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L32">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L36">        this.id = id;</span>
+<span class="nc" id="L37">    }</span>
+
+    public ZonedDateTime getCreatedDate() {
+<span class="fc" id="L40">        return createdDate;</span>
+    }
+
+    public void setCreatedDate(ZonedDateTime createdDate) {
+<span class="nc" id="L44">        this.createdDate = createdDate;</span>
+<span class="nc" id="L45">    }</span>
+
+    public String getLastModifiedBy() {
+<span class="fc" id="L48">        return lastModifiedBy;</span>
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+<span class="nc" id="L52">        this.lastModifiedBy = lastModifiedBy;</span>
+<span class="nc" id="L53">    }</span>
+
+    public ZonedDateTime getLastModifiedDate() {
+<span class="fc" id="L56">        return lastModifiedDate;</span>
+    }
+
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+<span class="nc" id="L60">        this.lastModifiedDate = lastModifiedDate;</span>
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L65">        return &quot;ManagedUserDTO{&quot; +</span>
+            &quot;id=&quot; + id +
+            &quot;, createdDate=&quot; + createdDate +
+            &quot;, lastModifiedBy='&quot; + lastModifiedBy + '\'' +
+            &quot;, lastModifiedDate=&quot; + lastModifiedDate +
+<span class="nc" id="L70">            &quot;} &quot; + super.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

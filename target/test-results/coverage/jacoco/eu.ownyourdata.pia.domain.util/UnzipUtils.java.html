@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnzipUtils.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain.util</a> &gt; <span class="el_source">UnzipUtils.java</span></div><h1>UnzipUtils.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain.util;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import static org.apache.commons.io.FilenameUtils.concat;
+
+/**
+ * Created by michael on 21.03.16.
+ */
+<span class="nc" id="L15">public class UnzipUtils {</span>
+    private static final int BUFFER_SIZE = 4096;
+
+    public static void extract(ZipFile zip, String location) throws IOException {
+<span class="nc" id="L19">        FileUtils.forceMkdir(new File(location));</span>
+
+<span class="nc" id="L21">        Enumeration&lt;? extends ZipEntry&gt; entries = zip.entries();</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        while (entries.hasMoreElements()) {</span>
+<span class="nc" id="L23">            ZipEntry entry = entries.nextElement();</span>
+<span class="nc" id="L24">            String filePath = concat(location, entry.getName());</span>
+
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            if (!entry.isDirectory()) {</span>
+                // if the entry is a file, extracts it
+<span class="nc" id="L28">                extractFile(zip.getInputStream(entry), filePath);</span>
+            } else {
+                // if the entry is a directory, make the directory
+<span class="nc" id="L31">                FileUtils.forceMkdir(new File(filePath));</span>
+            }
+<span class="nc" id="L33">        }</span>
+<span class="nc" id="L34">    }</span>
+
+    private static void extractFile(InputStream zipIn, String filePath) throws IOException {
+<span class="nc" id="L37">        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));</span>
+<span class="nc" id="L38">        byte[] bytesIn = new byte[BUFFER_SIZE];</span>
+        int read;
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        while ((read = zipIn.read(bytesIn)) != -1) {</span>
+<span class="nc" id="L41">            bos.write(bytesIn, 0, read);</span>
+        }
+<span class="nc" id="L43">        bos.close();</span>
+<span class="nc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

@@ -1,0 +1,40 @@
+{
+    "piaApp": {
+        "plugin" : {
+            "home": {
+                "title": "Plugins",
+                "createLabel": "Upload a new Plugin",
+                "installLabel": "Install Plugin",
+                "registerLabel": "Register a new Plugin",
+                "createOrEditLabel": "Create or edit a Plugin",
+                "search": "Search for Plugin"
+            },
+            "created": "A new Plugin is created with identifier {{ param }}",
+            "updated": "A Plugin is updated with identifier {{ param }}",
+            "deleted": "A Plugin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Plugin {{ id }}?"
+            },
+            "detail": {
+                "title": "Plugin"
+            },
+            "name": "Name",
+            "identifier": "Identifier",
+            "path": "Path",
+            "type": "Type",
+            "state": "Status",
+            "start": "Start",
+            "stop": "Stop",
+            "secret": "Secret",
+            "install": {
+                "title": "Install Plugin"
+            },
+            "register": {
+                "title": "Register a new Plugin",
+                "instructions": "Paste Base64 Code",
+                "grant": "Grant",
+                "deny": "Deny"
+            }
+        }
+    }
+}

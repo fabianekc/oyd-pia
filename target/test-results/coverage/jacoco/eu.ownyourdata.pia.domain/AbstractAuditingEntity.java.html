@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AbstractAuditingEntity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain</a> &gt; <span class="el_source">AbstractAuditingEntity.java</span></div><h1>AbstractAuditingEntity.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.time.ZonedDateTime;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Base abstract class for entities which will hold definitions for created, last modified by and created,
+ * last modified by date.
+ */
+@MappedSuperclass
+@Audited
+@EntityListeners(AuditingEntityListener.class)
+<span class="fc" id="L26">public abstract class AbstractAuditingEntity implements Serializable {</span>
+
+    private static final long serialVersionUID = 1L;
+
+    @CreatedBy
+    @NotNull
+    @Column(name = &quot;created_by&quot;, nullable = false, length = 50, updatable = false)
+    @JsonIgnore
+    private String createdBy;
+
+<span class="fc" id="L36">    @CreatedDate</span>
+    @NotNull
+    @Column(name = &quot;created_date&quot;, nullable = false)
+    @JsonIgnore
+<span class="fc" id="L40">    private ZonedDateTime createdDate = ZonedDateTime.now();</span>
+
+    @LastModifiedBy
+    @Column(name = &quot;last_modified_by&quot;, length = 50)
+    @JsonIgnore
+    private String lastModifiedBy;
+
+<span class="fc" id="L47">    @LastModifiedDate</span>
+    @Column(name = &quot;last_modified_date&quot;)
+    @JsonIgnore
+<span class="fc" id="L50">    private ZonedDateTime lastModifiedDate = ZonedDateTime.now();</span>
+
+    public String getCreatedBy() {
+<span class="nc" id="L53">        return createdBy;</span>
+    }
+
+    public void setCreatedBy(String createdBy) {
+<span class="nc" id="L57">        this.createdBy = createdBy;</span>
+<span class="nc" id="L58">    }</span>
+
+    public ZonedDateTime getCreatedDate() {
+<span class="fc" id="L61">        return createdDate;</span>
+    }
+
+    public void setCreatedDate(ZonedDateTime createdDate) {
+<span class="nc" id="L65">        this.createdDate = createdDate;</span>
+<span class="nc" id="L66">    }</span>
+
+    public String getLastModifiedBy() {
+<span class="fc" id="L69">        return lastModifiedBy;</span>
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+<span class="nc" id="L73">        this.lastModifiedBy = lastModifiedBy;</span>
+<span class="nc" id="L74">    }</span>
+
+    public ZonedDateTime getLastModifiedDate() {
+<span class="fc" id="L77">        return lastModifiedDate;</span>
+    }
+
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+<span class="nc" id="L81">        this.lastModifiedDate = lastModifiedDate;</span>
+<span class="nc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

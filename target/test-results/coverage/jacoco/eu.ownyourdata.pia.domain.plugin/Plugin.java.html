@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Plugin.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain.plugin</a> &gt; <span class="el_source">Plugin.java</span></div><h1>Plugin.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain.plugin;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Polymorphism;
+import org.hibernate.annotations.PolymorphismType;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * A Plugin.
+ */
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name=&quot;Plugin_Type&quot;)
+@Polymorphism(type = PolymorphismType.IMPLICIT)
+@Table(name=&quot;Plugin&quot;)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+<span class="fc" id="L23">public abstract class Plugin implements Serializable {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotNull
+    @Column(name = &quot;name&quot;, nullable = false)
+    private String name;
+
+    @NotNull
+    @Column(name = &quot;identifier&quot;, nullable = false, unique = true)
+    private String identifier;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name=&quot;Permissions&quot;, joinColumns=@JoinColumn(name=&quot;plugin_id&quot;))
+    @Column(name=&quot;permission&quot;)
+    public List&lt;String&gt; permissions;
+
+    public Long getId() {
+<span class="nc" id="L44">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L48">        this.id = id;</span>
+<span class="nc" id="L49">    }</span>
+
+    public String getName() {
+<span class="nc" id="L52">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L56">        this.name = name;</span>
+<span class="fc" id="L57">    }</span>
+
+    public String getIdentifier() {
+<span class="nc" id="L60">        return identifier;</span>
+    }
+
+    public void setIdentifier(String identifier) {
+<span class="fc" id="L64">        this.identifier = identifier;</span>
+<span class="fc" id="L65">    }</span>
+
+    public List&lt;String&gt; getPermissions() {
+<span class="nc" id="L68">        return permissions;</span>
+    }
+
+    public void setPermissions(List&lt;String&gt; permissions) {
+<span class="fc" id="L72">        this.permissions = permissions;</span>
+<span class="fc" id="L73">    }</span>
+
+    public abstract void accept(PluginVisitor visitor) throws Exception;
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (this == o) {</span>
+<span class="fc" id="L80">            return true;</span>
+        }
+<span class="nc bnc" id="L82" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L83">            return false;</span>
+        }
+<span class="nc" id="L85">        Plugin plugin = (Plugin) o;</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">        if(plugin.id == null || id == null) {</span>
+<span class="nc" id="L87">            return false;</span>
+        }
+<span class="nc" id="L89">        return Objects.equals(id, plugin.id);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L94">        return Objects.hashCode(id);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L99">        return &quot;Plugin{&quot; +</span>
+            &quot;id=&quot; + id +
+            &quot;, name='&quot; + name + &quot;'&quot; +
+            &quot;, identifier='&quot; + identifier + &quot;'&quot; +
+            '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

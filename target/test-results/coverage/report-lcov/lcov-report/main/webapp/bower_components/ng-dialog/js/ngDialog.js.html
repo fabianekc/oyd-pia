@@ -1,0 +1,2555 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for main/webapp/bower_components/ng-dialog/js/ngDialog.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">main/webapp/bower_components/ng-dialog/js/</a> ngDialog.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.69% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>29/377</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.53% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/277</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.26% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/57</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.69% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>29/377</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * ngDialog - easy modals and popup windows
+ * http://github.com/likeastore/ngDialog
+ * (c) 2013-2015 MIT License, https://likeastore.com
+ */
+&nbsp;
+(function (root, factory) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof module !== 'undefined' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >module.exports)</span> {
+        // CommonJS
+<span class="cstat-no" title="statement not covered" >        if (typeof angular === 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >            factory(require('angular'));</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            factory(angular);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        module.exports = 'ngDialog';</span>
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof define === 'function' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >define.amd)</span> {
+        // AMD
+<span class="cstat-no" title="statement not covered" >        define(['angular'], factory);</span>
+    } else {
+        // Global Variables
+        factory(root.angular);
+    }
+}(this, function (angular) {
+    'use strict';
+&nbsp;
+    var m = angular.module('ngDialog', []);
+&nbsp;
+    var $el = angular.element;
+    var isDef = angular.isDefined;
+    var style = (document.body || <span class="branch-1 cbranch-no" title="branch not covered" >document.documentElement)</span>.style;
+    var animationEndSupport = isDef(style.animation) || isDef(style.WebkitAnimation) || <span class="branch-2 cbranch-no" title="branch not covered" >isDef(style.MozAnimation) </span>|| <span class="branch-3 cbranch-no" title="branch not covered" >isDef(style.MsAnimation) </span>|| <span class="branch-4 cbranch-no" title="branch not covered" >isDef(style.OAnimation);</span>
+    var animationEndEvent = 'animationend webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend';
+    var focusableElementSelector = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]';
+    var disabledAnimationClass = 'ngdialog-disabled-animation';
+    var forceElementsReload = { html: false, body: false };
+    var scopes = {};
+    var openIdStack = [];
+    var keydownIsBound = false;
+    var openOnePerName = false;
+&nbsp;
+&nbsp;
+    m.provider('ngDialog', function () {
+        var defaults = this.defaults = {
+            className: 'ngdialog-theme-default',
+            disableAnimation: false,
+            plain: false,
+            showClose: true,
+            closeByDocument: true,
+            closeByEscape: true,
+            closeByNavigation: false,
+            appendTo: false,
+            preCloseCallback: false,
+            overlay: true,
+            cache: true,
+            trapFocus: true,
+            preserveFocus: true,
+            ariaAuto: true,
+            ariaRole: null,
+            ariaLabelledById: null,
+            ariaLabelledBySelector: null,
+            ariaDescribedById: null,
+            ariaDescribedBySelector: null
+        };
+&nbsp;
+        this.setForceHtmlReload = <span class="fstat-no" title="function not covered" >function (_useIt) {</span>
+<span class="cstat-no" title="statement not covered" >            forceElementsReload.html = _useIt || false;</span>
+        };
+&nbsp;
+        this.setForceBodyReload = <span class="fstat-no" title="function not covered" >function (_useIt) {</span>
+<span class="cstat-no" title="statement not covered" >            forceElementsReload.body = _useIt || false;</span>
+        };
+&nbsp;
+        this.setDefaults = <span class="fstat-no" title="function not covered" >function (newDefaults) {</span>
+<span class="cstat-no" title="statement not covered" >            angular.extend(defaults, newDefaults);</span>
+        };
+&nbsp;
+        this.setOpenOnePerName = <span class="fstat-no" title="function not covered" >function (isOpenOne) {</span>
+<span class="cstat-no" title="statement not covered" >            openOnePerName = isOpenOne || false;</span>
+        };
+&nbsp;
+        var globalID = 0, dialogsCount = 0, closeByDocumentHandler, defers = {};
+&nbsp;
+        this.$get = ['$document', '$templateCache', '$compile', '$q', '$http', '$rootScope', '$timeout', '$window', '$controller', '$injector',
+<span class="fstat-no" title="function not covered" >            function ($document, $templateCache, $compile, $q, $http, $rootScope, $timeout, $window, $controller, $injector) {</span>
+<span class="cstat-no" title="statement not covered" >                var $elements = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var privateMethods = {</span>
+                    onDocumentKeydown: <span class="fstat-no" title="function not covered" >function (event) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (event.keyCode === 27) {</span>
+<span class="cstat-no" title="statement not covered" >                            publicMethods.close('$escape');</span>
+                        }
+                    },
+&nbsp;
+                    activate: <span class="fstat-no" title="function not covered" >function($dialog) {</span>
+<span class="cstat-no" title="statement not covered" >                        var options = $dialog.data('$ngDialogOptions');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (options.trapFocus) {</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog.on('keydown', privateMethods.onTrapFocusKeydown);</span>
+&nbsp;
+                            // Catch rogue changes (eg. after unfocusing everything by clicking a non-focusable element)
+<span class="cstat-no" title="statement not covered" >                            $elements.body.on('keydown', privateMethods.onTrapFocusKeydown);</span>
+                        }
+                    },
+&nbsp;
+                    deactivate: <span class="fstat-no" title="function not covered" >function ($dialog) {</span>
+<span class="cstat-no" title="statement not covered" >                        $dialog.off('keydown', privateMethods.onTrapFocusKeydown);</span>
+<span class="cstat-no" title="statement not covered" >                        $elements.body.off('keydown', privateMethods.onTrapFocusKeydown);</span>
+                    },
+&nbsp;
+                    deactivateAll: <span class="fstat-no" title="function not covered" >function (els) {</span>
+<span class="cstat-no" title="statement not covered" >                        angular.forEach(els,<span class="fstat-no" title="function not covered" >function(el) {</span></span>
+<span class="cstat-no" title="statement not covered" >                            var $dialog = angular.element(el);</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.deactivate($dialog);</span>
+                        });
+                    },
+&nbsp;
+                    setBodyPadding: <span class="fstat-no" title="function not covered" >function (width) {</span>
+<span class="cstat-no" title="statement not covered" >                        var originalBodyPadding = parseInt(($elements.body.css('padding-right') || 0), 10);</span>
+<span class="cstat-no" title="statement not covered" >                        $elements.body.css('padding-right', (originalBodyPadding + width) + 'px');</span>
+<span class="cstat-no" title="statement not covered" >                        $elements.body.data('ng-dialog-original-padding', originalBodyPadding);</span>
+<span class="cstat-no" title="statement not covered" >                        $rootScope.$broadcast('ngDialog.setPadding', width);</span>
+                    },
+&nbsp;
+                    resetBodyPadding: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                        var originalBodyPadding = $elements.body.data('ng-dialog-original-padding');</span>
+<span class="cstat-no" title="statement not covered" >                        if (originalBodyPadding) {</span>
+<span class="cstat-no" title="statement not covered" >                            $elements.body.css('padding-right', originalBodyPadding + 'px');</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            $elements.body.css('padding-right', '');</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        $rootScope.$broadcast('ngDialog.setPadding', 0);</span>
+                    },
+&nbsp;
+                    performCloseDialog: <span class="fstat-no" title="function not covered" >function ($dialog, value) {</span>
+<span class="cstat-no" title="statement not covered" >                        var options = $dialog.data('$ngDialogOptions');</span>
+<span class="cstat-no" title="statement not covered" >                        var id = $dialog.attr('id');</span>
+<span class="cstat-no" title="statement not covered" >                        var scope = scopes[id];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (!scope) {</span>
+                            // Already closed
+<span class="cstat-no" title="statement not covered" >                            return;</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (typeof $window.Hammer !== 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >                            var hammerTime = scope.hammerTime;</span>
+<span class="cstat-no" title="statement not covered" >                            hammerTime.off('tap', closeByDocumentHandler);</span>
+<span class="cstat-no" title="statement not covered" >                            hammerTime.destroy &amp;&amp; hammerTime.destroy();</span>
+<span class="cstat-no" title="statement not covered" >                            delete scope.hammerTime;</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            $dialog.unbind('click');</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (dialogsCount === 1) {</span>
+<span class="cstat-no" title="statement not covered" >                            $elements.body.unbind('keydown', privateMethods.onDocumentKeydown);</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (!$dialog.hasClass('ngdialog-closing')){</span>
+<span class="cstat-no" title="statement not covered" >                            dialogsCount -= 1;</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var previousFocus = $dialog.data('$ngDialogPreviousFocus');</span>
+<span class="cstat-no" title="statement not covered" >                        if (previousFocus &amp;&amp; previousFocus.focus) {</span>
+<span class="cstat-no" title="statement not covered" >                            previousFocus.focus();</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        $rootScope.$broadcast('ngDialog.closing', $dialog, value);</span>
+<span class="cstat-no" title="statement not covered" >                        dialogsCount = dialogsCount &lt; 0 ? 0 : dialogsCount;</span>
+<span class="cstat-no" title="statement not covered" >                        if (animationEndSupport &amp;&amp; !options.disableAnimation) {</span>
+<span class="cstat-no" title="statement not covered" >                            scope.$destroy();</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog.unbind(animationEndEvent).bind(animationEndEvent, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                privateMethods.closeDialogElement($dialog, value);</span>
+                            }).addClass('ngdialog-closing');
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            scope.$destroy();</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.closeDialogElement($dialog, value);</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        if (defers[id]) {</span>
+<span class="cstat-no" title="statement not covered" >                            defers[id].resolve({</span>
+                                id: id,
+                                value: value,
+                                $dialog: $dialog,
+                                remainingDialogs: dialogsCount
+                            });
+<span class="cstat-no" title="statement not covered" >                            delete defers[id];</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        if (scopes[id]) {</span>
+<span class="cstat-no" title="statement not covered" >                            delete scopes[id];</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        openIdStack.splice(openIdStack.indexOf(id), 1);</span>
+<span class="cstat-no" title="statement not covered" >                        if (!openIdStack.length) {</span>
+<span class="cstat-no" title="statement not covered" >                            $elements.body.unbind('keydown', privateMethods.onDocumentKeydown);</span>
+<span class="cstat-no" title="statement not covered" >                            keydownIsBound = false;</span>
+                        }
+                    },
+&nbsp;
+                    closeDialogElement: <span class="fstat-no" title="function not covered" >function($dialog, value) {</span>
+<span class="cstat-no" title="statement not covered" >                        $dialog.remove();</span>
+<span class="cstat-no" title="statement not covered" >                        if (dialogsCount === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            $elements.html.removeClass('ngdialog-open');</span>
+<span class="cstat-no" title="statement not covered" >                            $elements.body.removeClass('ngdialog-open');</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.resetBodyPadding();</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        $rootScope.$broadcast('ngDialog.closed', $dialog, value);</span>
+                    },
+&nbsp;
+                    closeDialog: <span class="fstat-no" title="function not covered" >function ($dialog, value) {</span>
+<span class="cstat-no" title="statement not covered" >                        var preCloseCallback = $dialog.data('$ngDialogPreCloseCallback');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (preCloseCallback &amp;&amp; angular.isFunction(preCloseCallback)) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var preCloseCallbackResult = preCloseCallback.call($dialog, value);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (angular.isObject(preCloseCallbackResult)) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (preCloseCallbackResult.closePromise) {</span>
+<span class="cstat-no" title="statement not covered" >                                    preCloseCallbackResult.closePromise.then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                        privateMethods.performCloseDialog($dialog, value);</span>
+                                    });
+                                } else {
+<span class="cstat-no" title="statement not covered" >                                    preCloseCallbackResult.then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                        privateMethods.performCloseDialog($dialog, value);</span>
+                                    }, <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                                        return;</span>
+                                    });
+                                }
+                            } else <span class="cstat-no" title="statement not covered" >if (preCloseCallbackResult !== false) {</span>
+<span class="cstat-no" title="statement not covered" >                                privateMethods.performCloseDialog($dialog, value);</span>
+                            }
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            privateMethods.performCloseDialog($dialog, value);</span>
+                        }
+                    },
+&nbsp;
+                    onTrapFocusKeydown: <span class="fstat-no" title="function not covered" >function(ev) {</span>
+<span class="cstat-no" title="statement not covered" >                        var el = angular.element(ev.currentTarget);</span>
+<span class="cstat-no" title="statement not covered" >                        var $dialog;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (el.hasClass('ngdialog')) {</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog = el;</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            $dialog = privateMethods.getActiveDialog();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if ($dialog === null) {</span>
+<span class="cstat-no" title="statement not covered" >                                return;</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var isTab = (ev.keyCode === 9);</span>
+<span class="cstat-no" title="statement not covered" >                        var backward = (ev.shiftKey === true);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (isTab) {</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.handleTab($dialog, ev, backward);</span>
+                        }
+                    },
+&nbsp;
+                    handleTab: <span class="fstat-no" title="function not covered" >function($dialog, ev, backward) {</span>
+<span class="cstat-no" title="statement not covered" >                        var focusableElements = privateMethods.getFocusableElements($dialog);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (focusableElements.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (document.activeElement) {</span>
+<span class="cstat-no" title="statement not covered" >                                document.activeElement.blur();</span>
+                            }
+<span class="cstat-no" title="statement not covered" >                            return;</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var currentFocus = document.activeElement;</span>
+<span class="cstat-no" title="statement not covered" >                        var focusIndex = Array.prototype.indexOf.call(focusableElements, currentFocus);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var isFocusIndexUnknown = (focusIndex === -1);</span>
+<span class="cstat-no" title="statement not covered" >                        var isFirstElementFocused = (focusIndex === 0);</span>
+<span class="cstat-no" title="statement not covered" >                        var isLastElementFocused = (focusIndex === focusableElements.length - 1);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var cancelEvent = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (backward) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (isFocusIndexUnknown || isFirstElementFocused) {</span>
+<span class="cstat-no" title="statement not covered" >                                focusableElements[focusableElements.length - 1].focus();</span>
+<span class="cstat-no" title="statement not covered" >                                cancelEvent = true;</span>
+                            }
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            if (isFocusIndexUnknown || isLastElementFocused) {</span>
+<span class="cstat-no" title="statement not covered" >                                focusableElements[0].focus();</span>
+<span class="cstat-no" title="statement not covered" >                                cancelEvent = true;</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (cancelEvent) {</span>
+<span class="cstat-no" title="statement not covered" >                            ev.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >                            ev.stopPropagation();</span>
+                        }
+                    },
+&nbsp;
+                    autoFocus: <span class="fstat-no" title="function not covered" >function($dialog) {</span>
+<span class="cstat-no" title="statement not covered" >                        var dialogEl = $dialog[0];</span>
+&nbsp;
+                        // Browser's (Chrome 40, Forefix 37, IE 11) don't appear to honor autofocus on the dialog, but we should
+<span class="cstat-no" title="statement not covered" >                        var autoFocusEl = dialogEl.querySelector('*[autofocus]');</span>
+<span class="cstat-no" title="statement not covered" >                        if (autoFocusEl !== null) {</span>
+<span class="cstat-no" title="statement not covered" >                            autoFocusEl.focus();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (document.activeElement === autoFocusEl) {</span>
+<span class="cstat-no" title="statement not covered" >                                return;</span>
+                            }
+&nbsp;
+                            // Autofocus element might was display: none, so let's continue
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var focusableElements = privateMethods.getFocusableElements($dialog);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (focusableElements.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            focusableElements[0].focus();</span>
+<span class="cstat-no" title="statement not covered" >                            return;</span>
+                        }
+&nbsp;
+                        // We need to focus something for the screen readers to notice the dialog
+<span class="cstat-no" title="statement not covered" >                        var contentElements = privateMethods.filterVisibleElements(dialogEl.querySelectorAll('h1,h2,h3,h4,h5,h6,p,span'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (contentElements.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            var contentElement = contentElements[0];</span>
+<span class="cstat-no" title="statement not covered" >                            $el(contentElement).attr('tabindex', '-1').css('outline', '0');</span>
+<span class="cstat-no" title="statement not covered" >                            contentElement.focus();</span>
+                        }
+                    },
+&nbsp;
+                    getFocusableElements: <span class="fstat-no" title="function not covered" >function ($dialog) {</span>
+<span class="cstat-no" title="statement not covered" >                        var dialogEl = $dialog[0];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var rawElements = dialogEl.querySelectorAll(focusableElementSelector);</span>
+&nbsp;
+                        // Ignore untabbable elements, ie. those with tabindex = -1
+<span class="cstat-no" title="statement not covered" >                        var tabbableElements = privateMethods.filterTabbableElements(rawElements);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        return privateMethods.filterVisibleElements(tabbableElements);</span>
+                    },
+&nbsp;
+                    filterTabbableElements: <span class="fstat-no" title="function not covered" >function (els) {</span>
+<span class="cstat-no" title="statement not covered" >                        var tabbableFocusableElements = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        for (var i = 0; i &lt; els.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                            var el = els[i];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if ($el(el).attr('tabindex') !== '-1') {</span>
+<span class="cstat-no" title="statement not covered" >                                tabbableFocusableElements.push(el);</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        return tabbableFocusableElements;</span>
+                    },
+&nbsp;
+                    filterVisibleElements: <span class="fstat-no" title="function not covered" >function (els) {</span>
+<span class="cstat-no" title="statement not covered" >                        var visibleFocusableElements = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        for (var i = 0; i &lt; els.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                            var el = els[i];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (el.offsetWidth &gt; 0 || el.offsetHeight &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                                visibleFocusableElements.push(el);</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        return visibleFocusableElements;</span>
+                    },
+&nbsp;
+                    getActiveDialog: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                        var dialogs = document.querySelectorAll('.ngdialog');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (dialogs.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >                            return null;</span>
+                        }
+&nbsp;
+                        // TODO: This might be incorrect if there are a mix of open dialogs with different 'appendTo' values
+<span class="cstat-no" title="statement not covered" >                        return $el(dialogs[dialogs.length - 1]);</span>
+                    },
+&nbsp;
+                    applyAriaAttributes: <span class="fstat-no" title="function not covered" >function ($dialog, options) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (options.ariaAuto) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (!options.ariaRole) {</span>
+<span class="cstat-no" title="statement not covered" >                                var detectedRole = (privateMethods.getFocusableElements($dialog).length &gt; 0) ?</span>
+                                    'dialog' :
+                                    'alertdialog';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                options.ariaRole = detectedRole;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (!options.ariaLabelledBySelector) {</span>
+<span class="cstat-no" title="statement not covered" >                                options.ariaLabelledBySelector = 'h1,h2,h3,h4,h5,h6';</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (!options.ariaDescribedBySelector) {</span>
+<span class="cstat-no" title="statement not covered" >                                options.ariaDescribedBySelector = 'article,section,p';</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (options.ariaRole) {</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog.attr('role', options.ariaRole);</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        privateMethods.applyAriaAttribute(</span>
+                            $dialog, 'aria-labelledby', options.ariaLabelledById, options.ariaLabelledBySelector);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        privateMethods.applyAriaAttribute(</span>
+                            $dialog, 'aria-describedby', options.ariaDescribedById, options.ariaDescribedBySelector);
+                    },
+&nbsp;
+                    applyAriaAttribute: <span class="fstat-no" title="function not covered" >function($dialog, attr, id, selector) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (id) {</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog.attr(attr, id);</span>
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (selector) {</span>
+<span class="cstat-no" title="statement not covered" >                            var dialogId = $dialog.attr('id');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var firstMatch = $dialog[0].querySelector(selector);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (!firstMatch) {</span>
+<span class="cstat-no" title="statement not covered" >                                return;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var generatedId = dialogId + '-' + attr;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            $el(firstMatch).attr('id', generatedId);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            $dialog.attr(attr, generatedId);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            return generatedId;</span>
+                        }
+                    },
+&nbsp;
+                    detectUIRouter: <span class="fstat-no" title="function not covered" >function() {</span>
+                        //Detect if ui-router module is installed if not return false
+<span class="cstat-no" title="statement not covered" >                        try {</span>
+<span class="cstat-no" title="statement not covered" >                            angular.module('ui.router');</span>
+<span class="cstat-no" title="statement not covered" >                            return true;</span>
+                        } catch(err) {
+<span class="cstat-no" title="statement not covered" >                            return false;</span>
+                        }
+                    },
+&nbsp;
+                    getRouterLocationEventName: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >                        if(privateMethods.detectUIRouter()) {</span>
+<span class="cstat-no" title="statement not covered" >                            return '$stateChangeSuccess';</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        return '$locationChangeSuccess';</span>
+                    }
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var publicMethods = {</span>
+                    __PRIVATE__: privateMethods,
+&nbsp;
+                    /*
+                     * @param {Object} options:
+                     * - template {String} - id of ng-template, url for partial, plain string (if enabled)
+                     * - plain {Boolean} - enable plain string templates, default false
+                     * - scope {Object}
+                     * - controller {String}
+                     * - controllerAs {String}
+                     * - className {String} - dialog theme class
+                     * - disableAnimation {Boolean} - set to true to disable animation
+                     * - showClose {Boolean} - show close button, default true
+                     * - closeByEscape {Boolean} - default true
+                     * - closeByDocument {Boolean} - default true
+                     * - preCloseCallback {String|Function} - user supplied function name/function called before closing dialog (if set)
+                     * @return {Object} dialog
+                     */
+                    open: <span class="fstat-no" title="function not covered" >function (opts) {</span>
+<span class="cstat-no" title="statement not covered" >                        var dialogID = null;</span>
+<span class="cstat-no" title="statement not covered" >                        opts = opts || {};</span>
+<span class="cstat-no" title="statement not covered" >                        if (openOnePerName &amp;&amp; opts.name) {</span>
+<span class="cstat-no" title="statement not covered" >                            dialogID = opts.name+' dialog';</span>
+<span class="cstat-no" title="statement not covered" >                            if (this.isOpen(dialogID)) {</span>
+<span class="cstat-no" title="statement not covered" >                                return;</span>
+                            }
+                        }
+<span class="cstat-no" title="statement not covered" >                        var options = angular.copy(defaults);</span>
+<span class="cstat-no" title="statement not covered" >                        var localID = ++globalID;</span>
+<span class="cstat-no" title="statement not covered" >                        dialogID = dialogID || 'ngdialog' + localID;</span>
+<span class="cstat-no" title="statement not covered" >                        openIdStack.push(dialogID);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        angular.extend(options, opts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var defer;</span>
+<span class="cstat-no" title="statement not covered" >                        defers[dialogID] = defer = $q.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var scope;</span>
+<span class="cstat-no" title="statement not covered" >                        scopes[dialogID] = scope = angular.isObject(options.scope) ? options.scope.$new() : $rootScope.$new();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var $dialog, $dialogParent;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var resolve = angular.extend({}, options.resolve);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        angular.forEach(resolve, <span class="fstat-no" title="function not covered" >function (value, key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                            resolve[key] = angular.isString(value) ? $injector.get(value) : $injector.invoke(value, null, null, key);</span>
+                        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        $q.all({</span>
+                            template: loadTemplate(options.template || options.templateUrl),
+                            locals: $q.all(resolve)
+                        }).then(<span class="fstat-no" title="function not covered" >function (setup) {</span>
+<span class="cstat-no" title="statement not covered" >                            var template = setup.template,</span>
+                                locals = setup.locals;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.showClose) {</span>
+<span class="cstat-no" title="statement not covered" >                                template += '&lt;div class="ngdialog-close"&gt;&lt;/div&gt;';</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var hasOverlayClass = options.overlay ? '' : ' ngdialog-no-overlay';</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog = $el('&lt;div id="'+dialogID + '" class="ngdialog' + hasOverlayClass + '"&gt;&lt;/div&gt;');</span>
+<span class="cstat-no" title="statement not covered" >                            $dialog.html((options.overlay ?</span>
+                                '&lt;div class="ngdialog-overlay"&gt;&lt;/div&gt;&lt;div class="ngdialog-content" role="document"&gt;' + template + '&lt;/div&gt;' :
+                                '&lt;div class="ngdialog-content" role="document"&gt;' + template + '&lt;/div&gt;'));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            $dialog.data('$ngDialogOptions', options);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            scope.ngDialogId = dialogID;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.data &amp;&amp; angular.isString(options.data)) {</span>
+<span class="cstat-no" title="statement not covered" >                                var firstLetter = options.data.replace(/^\s*/, '')[0];</span>
+<span class="cstat-no" title="statement not covered" >                                scope.ngDialogData = (firstLetter === '{' || firstLetter === '[') ? angular.fromJson(options.data) : new String(options.data);</span>
+<span class="cstat-no" title="statement not covered" >                                scope.ngDialogData.ngDialogId = dialogID;</span>
+                            } else <span class="cstat-no" title="statement not covered" >if (options.data &amp;&amp; angular.isObject(options.data)) {</span>
+<span class="cstat-no" title="statement not covered" >                                scope.ngDialogData = options.data;</span>
+<span class="cstat-no" title="statement not covered" >                                scope.ngDialogData.ngDialogId = dialogID;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.className) {</span>
+<span class="cstat-no" title="statement not covered" >                                $dialog.addClass(options.className);</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.disableAnimation) {</span>
+<span class="cstat-no" title="statement not covered" >                                $dialog.addClass(disabledAnimationClass);</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.appendTo &amp;&amp; angular.isString(options.appendTo)) {</span>
+<span class="cstat-no" title="statement not covered" >                                $dialogParent = angular.element(document.querySelector(options.appendTo));</span>
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                $dialogParent = $elements.body;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            privateMethods.applyAriaAttributes($dialog, options);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.preCloseCallback) {</span>
+<span class="cstat-no" title="statement not covered" >                                var preCloseCallback;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (angular.isFunction(options.preCloseCallback)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    preCloseCallback = options.preCloseCallback;</span>
+                                } else <span class="cstat-no" title="statement not covered" >if (angular.isString(options.preCloseCallback)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    if (scope) {</span>
+<span class="cstat-no" title="statement not covered" >                                        if (angular.isFunction(scope[options.preCloseCallback])) {</span>
+<span class="cstat-no" title="statement not covered" >                                            preCloseCallback = scope[options.preCloseCallback];</span>
+                                        } else <span class="cstat-no" title="statement not covered" >if (scope.$parent &amp;&amp; angular.isFunction(scope.$parent[options.preCloseCallback])) {</span>
+<span class="cstat-no" title="statement not covered" >                                            preCloseCallback = scope.$parent[options.preCloseCallback];</span>
+                                        } else <span class="cstat-no" title="statement not covered" >if ($rootScope &amp;&amp; angular.isFunction($rootScope[options.preCloseCallback])) {</span>
+<span class="cstat-no" title="statement not covered" >                                            preCloseCallback = $rootScope[options.preCloseCallback];</span>
+                                        }
+                                    }
+                                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (preCloseCallback) {</span>
+<span class="cstat-no" title="statement not covered" >                                    $dialog.data('$ngDialogPreCloseCallback', preCloseCallback);</span>
+                                }
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            scope.closeThisDialog = <span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                privateMethods.closeDialog($dialog, value);</span>
+                            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.controller &amp;&amp; (angular.isString(options.controller) || angular.isArray(options.controller) || angular.isFunction(options.controller))) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                var label;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (options.controllerAs &amp;&amp; angular.isString(options.controllerAs)) {</span>
+<span class="cstat-no" title="statement not covered" >                                    label = options.controllerAs;</span>
+                                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                var controllerInstance = $controller(options.controller, angular.extend(</span>
+                                    locals,
+                                    {
+                                        $scope: scope,
+                                        $element: $dialog
+                                    }),
+                                    true,
+                                    label
+                                );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if(options.bindToController) {</span>
+<span class="cstat-no" title="statement not covered" >                                    angular.extend(controllerInstance.instance, {ngDialogId: scope.ngDialogId, ngDialogData: scope.ngDialogData, closeThisDialog: scope.closeThisDialog});</span>
+                                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                $dialog.data('$ngDialogControllerController', controllerInstance());</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                var $activeDialogs = document.querySelectorAll('.ngdialog');</span>
+<span class="cstat-no" title="statement not covered" >                                privateMethods.deactivateAll($activeDialogs);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                $compile($dialog)(scope);</span>
+<span class="cstat-no" title="statement not covered" >                                var widthDiffs = $window.innerWidth - $elements.body.prop('clientWidth');</span>
+<span class="cstat-no" title="statement not covered" >                                $elements.html.addClass('ngdialog-open');</span>
+<span class="cstat-no" title="statement not covered" >                                $elements.body.addClass('ngdialog-open');</span>
+<span class="cstat-no" title="statement not covered" >                                var scrollBarWidth = widthDiffs - ($window.innerWidth - $elements.body.prop('clientWidth'));</span>
+<span class="cstat-no" title="statement not covered" >                                if (scrollBarWidth &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >                                    privateMethods.setBodyPadding(scrollBarWidth);</span>
+                                }
+<span class="cstat-no" title="statement not covered" >                                $dialogParent.append($dialog);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                privateMethods.activate($dialog);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (options.trapFocus) {</span>
+<span class="cstat-no" title="statement not covered" >                                    privateMethods.autoFocus($dialog);</span>
+                                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (options.name) {</span>
+<span class="cstat-no" title="statement not covered" >                                    $rootScope.$broadcast('ngDialog.opened', {dialog: $dialog, name: options.name});</span>
+                                } else {
+<span class="cstat-no" title="statement not covered" >                                    $rootScope.$broadcast('ngDialog.opened', $dialog);</span>
+                                }
+                            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (!keydownIsBound) {</span>
+<span class="cstat-no" title="statement not covered" >                                $elements.body.bind('keydown', privateMethods.onDocumentKeydown);</span>
+<span class="cstat-no" title="statement not covered" >                                keydownIsBound = true;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.closeByNavigation) {</span>
+<span class="cstat-no" title="statement not covered" >                                var eventName = privateMethods.getRouterLocationEventName();</span>
+<span class="cstat-no" title="statement not covered" >                                $rootScope.$on(eventName, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                    privateMethods.closeDialog($dialog);</span>
+                                });
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (options.preserveFocus) {</span>
+<span class="cstat-no" title="statement not covered" >                                $dialog.data('$ngDialogPreviousFocus', document.activeElement);</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            closeByDocumentHandler = <span class="fstat-no" title="function not covered" >function (event) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                var isOverlay = options.closeByDocument ? $el(event.target).hasClass('ngdialog-overlay') : false;</span>
+<span class="cstat-no" title="statement not covered" >                                var isCloseBtn = $el(event.target).hasClass('ngdialog-close');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                if (isOverlay || isCloseBtn) {</span>
+<span class="cstat-no" title="statement not covered" >                                    publicMethods.close($dialog.attr('id'), isCloseBtn ? '$closeButton' : '$document');</span>
+                                }
+                            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (typeof $window.Hammer !== 'undefined') {</span>
+<span class="cstat-no" title="statement not covered" >                                var hammerTime = scope.hammerTime = $window.Hammer($dialog[0]);</span>
+<span class="cstat-no" title="statement not covered" >                                hammerTime.on('tap', closeByDocumentHandler);</span>
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                $dialog.bind('click', closeByDocumentHandler);</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            dialogsCount += 1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            return publicMethods;</span>
+                        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        return {</span>
+                            id: dialogID,
+                            closePromise: defer.promise,
+                            close: <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >                                privateMethods.closeDialog($dialog, value);</span>
+                            }
+                        };
+&nbsp;
+<span class="fstat-no" title="function not covered" >                        function loadTemplateUrl (tmpl, config) {</span>
+<span class="cstat-no" title="statement not covered" >                            $rootScope.$broadcast('ngDialog.templateLoading', tmpl);</span>
+<span class="cstat-no" title="statement not covered" >                            return $http.get(tmpl, (config || {})).then(<span class="fstat-no" title="function not covered" >function(res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                $rootScope.$broadcast('ngDialog.templateLoaded', tmpl);</span>
+<span class="cstat-no" title="statement not covered" >                                return res.data || '';</span>
+                            });
+                        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >                        function loadTemplate (tmpl) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (!tmpl) {</span>
+<span class="cstat-no" title="statement not covered" >                                return 'Empty template';</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (angular.isString(tmpl) &amp;&amp; options.plain) {</span>
+<span class="cstat-no" title="statement not covered" >                                return tmpl;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (typeof options.cache === 'boolean' &amp;&amp; !options.cache) {</span>
+<span class="cstat-no" title="statement not covered" >                                return loadTemplateUrl(tmpl, {cache: false});</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            return loadTemplateUrl(tmpl, {cache: $templateCache});</span>
+                        }
+                    },
+&nbsp;
+                    /*
+                     * @param {Object} options:
+                     * - template {String} - id of ng-template, url for partial, plain string (if enabled)
+                     * - plain {Boolean} - enable plain string templates, default false
+                     * - name {String}
+                     * - scope {Object}
+                     * - controller {String}
+                     * - controllerAs {String}
+                     * - className {String} - dialog theme class
+                     * - showClose {Boolean} - show close button, default true
+                     * - closeByEscape {Boolean} - default false
+                     * - closeByDocument {Boolean} - default false
+                     * - preCloseCallback {String|Function} - user supplied function name/function called before closing dialog (if set); not called on confirm
+                     *
+                     * @return {Object} dialog
+                     */
+                    openConfirm: <span class="fstat-no" title="function not covered" >function (opts) {</span>
+<span class="cstat-no" title="statement not covered" >                        var defer = $q.defer();</span>
+<span class="cstat-no" title="statement not covered" >                        var options = angular.copy(defaults);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        opts = opts || {};</span>
+<span class="cstat-no" title="statement not covered" >                        angular.extend(options, opts);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        options.scope = angular.isObject(options.scope) ? options.scope.$new() : $rootScope.$new();</span>
+<span class="cstat-no" title="statement not covered" >                        options.scope.confirm = <span class="fstat-no" title="function not covered" >function (value) {</span></span>
+<span class="cstat-no" title="statement not covered" >                            defer.resolve(value);</span>
+<span class="cstat-no" title="statement not covered" >                            var $dialog = $el(document.getElementById(openResult.id));</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.performCloseDialog($dialog, value);</span>
+                        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var openResult = publicMethods.open(options);</span>
+<span class="cstat-no" title="statement not covered" >                        if (openResult) {</span>
+<span class="cstat-no" title="statement not covered" >                            openResult.closePromise.then(<span class="fstat-no" title="function not covered" >function (data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                if (data) {</span>
+<span class="cstat-no" title="statement not covered" >                                    return defer.reject(data.value);</span>
+                                }
+<span class="cstat-no" title="statement not covered" >                                return defer.reject();</span>
+                            });
+<span class="cstat-no" title="statement not covered" >                            return defer.promise;</span>
+                        }
+                    },
+&nbsp;
+                    isOpen: <span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >                        var $dialog = $el(document.getElementById(id));</span>
+<span class="cstat-no" title="statement not covered" >                        return $dialog.length &gt; 0;</span>
+                    },
+&nbsp;
+                    /*
+                     * @param {String} id
+                     * @return {Object} dialog
+                     */
+                    close: <span class="fstat-no" title="function not covered" >function (id, value) {</span>
+<span class="cstat-no" title="statement not covered" >                        var $dialog = $el(document.getElementById(id));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if ($dialog.length) {</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.closeDialog($dialog, value);</span>
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            if (id === '$escape') {</span>
+<span class="cstat-no" title="statement not covered" >                                var topDialogId = openIdStack[openIdStack.length - 1];</span>
+<span class="cstat-no" title="statement not covered" >                                $dialog = $el(document.getElementById(topDialogId));</span>
+<span class="cstat-no" title="statement not covered" >                                if ($dialog.data('$ngDialogOptions').closeByEscape) {</span>
+<span class="cstat-no" title="statement not covered" >                                    privateMethods.closeDialog($dialog, '$escape');</span>
+                                }
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                publicMethods.closeAll(value);</span>
+                            }
+                        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        return publicMethods;</span>
+                    },
+&nbsp;
+                    closeAll: <span class="fstat-no" title="function not covered" >function (value) {</span>
+<span class="cstat-no" title="statement not covered" >                        var $all = document.querySelectorAll('.ngdialog');</span>
+&nbsp;
+                        // Reverse order to ensure focus restoration works as expected
+<span class="cstat-no" title="statement not covered" >                        for (var i = $all.length - 1; i &gt;= 0; i--) {</span>
+<span class="cstat-no" title="statement not covered" >                            var dialog = $all[i];</span>
+<span class="cstat-no" title="statement not covered" >                            privateMethods.closeDialog($el(dialog), value);</span>
+                        }
+                    },
+&nbsp;
+                    getOpenDialogs: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >                        return openIdStack;</span>
+                    },
+&nbsp;
+                    getDefaults: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                        return defaults;</span>
+                    }
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                angular.forEach(</span>
+                    ['html', 'body'],
+<span class="fstat-no" title="function not covered" >                    function(elementName) {</span>
+<span class="cstat-no" title="statement not covered" >                        $elements[elementName] = $document.find(elementName);</span>
+<span class="cstat-no" title="statement not covered" >                        if (forceElementsReload[elementName]) {</span>
+<span class="cstat-no" title="statement not covered" >                            var eventName = privateMethods.getRouterLocationEventName();</span>
+<span class="cstat-no" title="statement not covered" >                            $rootScope.$on(eventName, <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                                $elements[elementName] = $document.find(elementName);</span>
+                            });
+                        }
+                    }
+                );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                return publicMethods;</span>
+            }];
+    });
+&nbsp;
+    m.directive('ngDialog', ['ngDialog', <span class="fstat-no" title="function not covered" >function (ngDialog) {</span>
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            restrict: 'A',
+            scope: {
+                ngDialogScope: '='
+            },
+            link: <span class="fstat-no" title="function not covered" >function (scope, elem, attrs) {</span>
+<span class="cstat-no" title="statement not covered" >                elem.on('click', <span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    e.preventDefault();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var ngDialogScope = angular.isDefined(scope.ngDialogScope) ? scope.ngDialogScope : 'noScope';</span>
+<span class="cstat-no" title="statement not covered" >                    angular.isDefined(attrs.ngDialogClosePrevious) &amp;&amp; ngDialog.close(attrs.ngDialogClosePrevious);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var defaults = ngDialog.getDefaults();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    ngDialog.open({</span>
+                        template: attrs.ngDialog,
+                        className: attrs.ngDialogClass || defaults.className,
+                        controller: attrs.ngDialogController,
+                        controllerAs: attrs.ngDialogControllerAs,
+                        bindToController: attrs.ngDialogBindToController,
+                        scope: ngDialogScope,
+                        data: attrs.ngDialogData,
+                        showClose: attrs.ngDialogShowClose === 'false' ? false : (attrs.ngDialogShowClose === 'true' ? true : defaults.showClose),
+                        closeByDocument: attrs.ngDialogCloseByDocument === 'false' ? false : (attrs.ngDialogCloseByDocument === 'true' ? true : defaults.closeByDocument),
+                        closeByEscape: attrs.ngDialogCloseByEscape === 'false' ? false : (attrs.ngDialogCloseByEscape === 'true' ? true : defaults.closeByEscape),
+                        overlay: attrs.ngDialogOverlay === 'false' ? false : (attrs.ngDialogOverlay === 'true' ? true : defaults.overlay),
+                        preCloseCallback: attrs.ngDialogPreCloseCallback || defaults.preCloseCallback
+                    });
+                });
+            }
+        };
+    }]);
+&nbsp;
+    return m;
+}));
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 25 2016 00:02:24 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

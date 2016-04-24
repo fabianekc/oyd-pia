@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AuditEventService.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.service</a> &gt; <span class="el_source">AuditEventService.java</span></div><h1>AuditEventService.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.service;
+
+import eu.ownyourdata.pia.config.audit.AuditEventConverter;
+import eu.ownyourdata.pia.domain.PersistentAuditEvent;
+import eu.ownyourdata.pia.repository.PersistenceAuditEventRepository;
+import java.time.LocalDateTime;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Service for managing audit events.
+ * &lt;p/&gt;
+ * &lt;p&gt;
+ * This is the default implementation to support SpringBoot Actuator AuditEventRepository
+ * &lt;/p&gt;
+ */
+@Service
+@Transactional
+public class AuditEventService {
+
+    private PersistenceAuditEventRepository persistenceAuditEventRepository;
+
+    private AuditEventConverter auditEventConverter;
+
+    @Inject
+    public AuditEventService(
+        PersistenceAuditEventRepository persistenceAuditEventRepository,
+<span class="fc" id="L33">        AuditEventConverter auditEventConverter) {</span>
+
+<span class="fc" id="L35">        this.persistenceAuditEventRepository = persistenceAuditEventRepository;</span>
+<span class="fc" id="L36">        this.auditEventConverter = auditEventConverter;</span>
+<span class="fc" id="L37">    }</span>
+
+    public List&lt;AuditEvent&gt; findAll() {
+<span class="fc" id="L40">        return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());</span>
+    }
+
+    public List&lt;AuditEvent&gt; findByDates(LocalDateTime fromDate, LocalDateTime toDate) {
+<span class="nc" id="L44">        List&lt;PersistentAuditEvent&gt; persistentAuditEvents =</span>
+<span class="nc" id="L45">            persistenceAuditEventRepository.findAllByAuditEventDateBetween(fromDate, toDate);</span>
+
+<span class="nc" id="L47">        return auditEventConverter.convertToAuditEvent(persistentAuditEvents);</span>
+    }
+
+    public Optional&lt;AuditEvent&gt; find(Long id) {
+<span class="fc" id="L51">        return Optional.ofNullable(persistenceAuditEventRepository.findOne(id)).map</span>
+<span class="fc" id="L52">            (auditEventConverter::convertToAuditEvent);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

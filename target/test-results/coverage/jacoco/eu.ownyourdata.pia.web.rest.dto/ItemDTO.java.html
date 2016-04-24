@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ItemDTO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest.dto</a> &gt; <span class="el_source">ItemDTO.java</span></div><h1>ItemDTO.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest.dto;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
+
+
+/**
+ * A DTO for the Item entity.
+ */
+<span class="nc" id="L11">public class ItemDTO implements Serializable {</span>
+
+    private Long id;
+
+    @NotNull
+    private String value;
+
+    private Long belongsId;
+
+    private String belongsIdentifier;
+
+    public Long getId() {
+<span class="nc" id="L23">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L27">        this.id = id;</span>
+<span class="nc" id="L28">    }</span>
+    public String getValue() {
+<span class="nc" id="L30">        return value;</span>
+    }
+
+    public void setValue(String value) {
+<span class="nc" id="L34">        this.value = value;</span>
+<span class="nc" id="L35">    }</span>
+
+    public Long getBelongsId() {
+<span class="nc" id="L38">        return belongsId;</span>
+    }
+
+    public void setBelongsId(Long repoId) {
+<span class="nc" id="L42">        this.belongsId = repoId;</span>
+<span class="nc" id="L43">    }</span>
+
+    public String getBelongsIdentifier() {
+<span class="nc" id="L46">        return belongsIdentifier;</span>
+    }
+
+    public void setBelongsIdentifier(String repoIdentifier) {
+<span class="nc" id="L50">        this.belongsIdentifier = repoIdentifier;</span>
+<span class="nc" id="L51">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L56">            return true;</span>
+        }
+<span class="nc bnc" id="L58" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L59">            return false;</span>
+        }
+
+<span class="nc" id="L62">        ItemDTO itemDTO = (ItemDTO) o;</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if ( ! Objects.equals(id, itemDTO.id)) return false;</span>
+
+<span class="nc" id="L66">        return true;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L71">        return Objects.hashCode(id);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L76">        return &quot;ItemDTO{&quot; +</span>
+            &quot;id=&quot; + id +
+            &quot;, value='&quot; + value + &quot;'&quot; +
+            '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

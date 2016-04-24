@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Item.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain</a> &gt; <span class="el_source">Item.java</span></div><h1>Item.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * A Item.
+ */
+@Entity
+@Table(name = &quot;item&quot;)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+<span class="fc" id="L17">public class Item implements Serializable {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @NotNull
+    @Column(name = &quot;value&quot;, nullable = false, length = 10000)
+    private String value;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;belongs_id&quot;)
+    private Repo belongs;
+
+    public Long getId() {
+<span class="fc" id="L32">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L36">        this.id = id;</span>
+<span class="fc" id="L37">    }</span>
+
+    public String getValue() {
+<span class="fc" id="L40">        return value;</span>
+    }
+
+    public void setValue(String value) {
+<span class="fc" id="L44">        this.value = value;</span>
+<span class="fc" id="L45">    }</span>
+
+    public Repo getBelongs() {
+<span class="fc" id="L48">        return belongs;</span>
+    }
+
+    public void setBelongs(Repo repo) {
+<span class="fc" id="L52">        this.belongs = repo;</span>
+<span class="fc" id="L53">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (this == o) {</span>
+<span class="nc" id="L58">            return true;</span>
+        }
+<span class="nc bnc" id="L60" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L61">            return false;</span>
+        }
+<span class="nc" id="L63">        Item item = (Item) o;</span>
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        if(item.id == null || id == null) {</span>
+<span class="nc" id="L65">            return false;</span>
+        }
+<span class="nc" id="L67">        return Objects.equals(id, item.id);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L72">        return Objects.hashCode(id);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L77">        return &quot;Item{&quot; +</span>
+            &quot;id=&quot; + id +
+            &quot;, value='&quot; + value + &quot;'&quot; +
+            '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

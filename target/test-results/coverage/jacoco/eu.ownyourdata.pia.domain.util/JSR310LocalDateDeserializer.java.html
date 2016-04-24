@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JSR310LocalDateDeserializer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain.util</a> &gt; <span class="el_source">JSR310LocalDateDeserializer.java</span></div><h1>JSR310LocalDateDeserializer.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain.util;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+
+/**
+ * Custom Jackson deserializer for transforming a JSON object (using the ISO 8601 date formatwith optional time)
+ * to a JSR310 LocalDate object.
+ */
+public class JSR310LocalDateDeserializer extends JsonDeserializer&lt;LocalDate&gt; {
+
+<span class="fc" id="L19">    public static final JSR310LocalDateDeserializer INSTANCE = new JSR310LocalDateDeserializer();</span>
+
+<span class="fc" id="L21">    private JSR310LocalDateDeserializer() {}</span>
+
+    private static final DateTimeFormatter ISO_DATE_OPTIONAL_TIME;
+
+    static {
+<span class="fc" id="L26">        ISO_DATE_OPTIONAL_TIME = new DateTimeFormatterBuilder()</span>
+<span class="fc" id="L27">            .append(DateTimeFormatter.ISO_LOCAL_DATE)</span>
+<span class="fc" id="L28">            .optionalStart()</span>
+<span class="fc" id="L29">            .appendLiteral('T')</span>
+<span class="fc" id="L30">            .append(DateTimeFormatter.ISO_OFFSET_TIME)</span>
+<span class="fc" id="L31">            .toFormatter();</span>
+<span class="fc" id="L32">    }</span>
+
+    @Override
+    public LocalDate deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+<span class="nc bnc" id="L36" title="All 3 branches missed.">        switch(parser.getCurrentToken()) {</span>
+            case START_ARRAY:
+<span class="nc bnc" id="L38" title="All 2 branches missed.">                if(parser.nextToken() == JsonToken.END_ARRAY) {</span>
+<span class="nc" id="L39">                    return null;</span>
+                }
+<span class="nc" id="L41">                int year = parser.getIntValue();</span>
+
+<span class="nc" id="L43">                parser.nextToken();</span>
+<span class="nc" id="L44">                int month = parser.getIntValue();</span>
+
+<span class="nc" id="L46">                parser.nextToken();</span>
+<span class="nc" id="L47">                int day = parser.getIntValue();</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if(parser.nextToken() != JsonToken.END_ARRAY) {</span>
+<span class="nc" id="L50">                    throw context.wrongTokenException(parser, JsonToken.END_ARRAY, &quot;Expected array to end.&quot;);</span>
+                }
+<span class="nc" id="L52">                return LocalDate.of(year, month, day);</span>
+
+            case VALUE_STRING:
+<span class="nc" id="L55">                String string = parser.getText().trim();</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">                if(string.length() == 0) {</span>
+<span class="nc" id="L57">                    return null;</span>
+                }
+<span class="nc" id="L59">                return LocalDate.parse(string, ISO_DATE_OPTIONAL_TIME);</span>
+        }
+<span class="nc" id="L61">        throw context.wrongTokenException(parser, JsonToken.START_ARRAY, &quot;Expected array or string.&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

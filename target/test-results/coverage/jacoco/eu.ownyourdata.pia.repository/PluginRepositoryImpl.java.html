@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PluginRepositoryImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.repository</a> &gt; <span class="el_source">PluginRepositoryImpl.java</span></div><h1>PluginRepositoryImpl.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.repository;
+
+import eu.ownyourdata.pia.domain.InvalidManifestException;
+import eu.ownyourdata.pia.domain.plugin.Manifest;
+import eu.ownyourdata.pia.domain.plugin.Plugin;
+import eu.ownyourdata.pia.domain.plugin.PluginFactory;
+import eu.ownyourdata.pia.domain.plugin.RequirementManifestException;
+import eu.ownyourdata.pia.domain.plugin.visitor.PluginCredentialsWriter;
+import eu.ownyourdata.pia.domain.plugin.visitor.PluginInstaller;
+import eu.ownyourdata.pia.domain.plugin.visitor.PluginUninstaller;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientRegistrationService;
+import org.springframework.security.oauth2.provider.NoSuchClientException;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.zip.ZipFile;
+
+import static org.apache.commons.io.FilenameUtils.concat;
+
+/**
+ * Created by michael on 26.02.16.
+ */
+<span class="fc" id="L28">public class PluginRepositoryImpl implements PluginRepositoryCustom {</span>
+
+    public static final String PLUGINS_PATH = &quot;plugins&quot;;
+
+    @Inject
+    private ClientRegistrationService clientRegistrationService;
+
+    @Inject
+    private PluginRepository pluginRepository;
+
+    @Inject
+    private PluginFactory pluginFactory;
+
+    @Override
+    public boolean isInstalled(String identifier) {
+<span class="nc" id="L43">        return FileUtils.getFile(getPluginInstallPath(identifier)).exists();</span>
+    }
+
+
+    @Override
+    public Plugin install(ZipFile zip) throws ManifestNotFoundException, PluginAlreadyInstalledException, InvalidManifestException, PluginInstallationException {
+        //verifyPluginNotInstalled(manifest);
+        try {
+<span class="nc" id="L51">            Plugin plugin = pluginFactory.build(zip);</span>
+<span class="nc" id="L52">            plugin.accept(new PluginInstaller(zip));</span>
+
+<span class="nc" id="L54">            return plugin;</span>
+<span class="nc" id="L55">        } catch (IOException e) {</span>
+<span class="nc" id="L56">            throw new PluginInstallationException(&quot;Could not install plugin &quot;, e);</span>
+<span class="nc" id="L57">        } catch (Exception e) {</span>
+<span class="nc" id="L58">            throw new PluginInstallationException(&quot;Could not install plugin &quot;, e);</span>
+        }
+    }
+
+    @Override
+    public Plugin uninstall(Plugin plugin) throws Exception {
+<span class="nc" id="L64">        plugin.accept(new PluginUninstaller());</span>
+
+<span class="nc" id="L66">        return plugin;</span>
+    }
+
+
+    private String getPluginInstallPath(String pluginIdentifier) {
+<span class="nc" id="L71">        return concat(PLUGINS_PATH, pluginIdentifier);</span>
+
+    }
+
+    private void verifyPluginNotInstalled(Manifest manifest) throws PluginAlreadyInstalledException {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (isInstalled(manifest.getIdentifier())) {</span>
+<span class="nc" id="L77">            throw new PluginAlreadyInstalledException(&quot;Plugin &quot; + manifest.getIdentifier() + &quot; is already installed&quot;);</span>
+        }
+<span class="nc" id="L79">    }</span>
+
+    @Override
+    public ClientDetails activate(Plugin plugin) throws InvalidManifestException, PluginActivationException {
+        try {
+<span class="nc" id="L84">            BaseClientDetails clientDetails = createBaseClientDetails(plugin);</span>
+<span class="nc" id="L85">            clientRegistrationService.addClientDetails(clientDetails);</span>
+
+<span class="nc" id="L87">            plugin.accept(new PluginCredentialsWriter(clientDetails));</span>
+
+<span class="nc" id="L89">            return clientDetails;</span>
+<span class="nc" id="L90">        } catch (IOException e) {</span>
+<span class="nc" id="L91">            throw new PluginActivationException(e);</span>
+<span class="nc" id="L92">        } catch (Exception e) {</span>
+<span class="nc" id="L93">            throw new PluginActivationException(e);</span>
+        }
+    }
+
+    @Override
+    public Plugin deactivate(Plugin plugin) {
+        try {
+<span class="nc" id="L100">            clientRegistrationService.removeClientDetails(plugin.getIdentifier());</span>
+<span class="nc" id="L101">        } catch (NoSuchClientException exception) {</span>
+            // ignore, remove silently
+<span class="nc" id="L103">        }</span>
+<span class="nc" id="L104">        return plugin;</span>
+    }
+
+    @Override
+    public Plugin get(Manifest manifest) throws RequirementManifestException {
+<span class="nc" id="L109">        return pluginRepository.findOneByIdentifier(manifest.getIdentifier())</span>
+<span class="nc" id="L110">            .map(plugin -&gt; plugin)</span>
+<span class="nc" id="L111">            .orElse(pluginFactory.build(manifest));</span>
+    }
+
+    private BaseClientDetails createBaseClientDetails(Plugin plugin) {
+<span class="nc" id="L115">        BaseClientDetails baseClientDetails = new BaseClientDetails();</span>
+<span class="nc" id="L116">        baseClientDetails.setScope(plugin.getPermissions());</span>
+<span class="nc" id="L117">        baseClientDetails.setClientId(plugin.getIdentifier());</span>
+<span class="nc" id="L118">        baseClientDetails.setClientSecret(RandomStringUtils.randomAlphanumeric(20));</span>
+<span class="nc" id="L119">        baseClientDetails.setRefreshTokenValiditySeconds(3600);</span>
+<span class="nc" id="L120">        baseClientDetails.setAccessTokenValiditySeconds(3600);</span>
+<span class="nc" id="L121">        baseClientDetails.setAuthorizedGrantTypes(Collections.singleton(&quot;client_credentials&quot;));</span>
+
+<span class="nc" id="L123">        return baseClientDetails;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

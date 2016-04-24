@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ItemResource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest</a> &gt; <span class="el_source">ItemResource.java</span></div><h1>ItemResource.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest;
+
+import com.codahale.metrics.annotation.Timed;
+import eu.ownyourdata.pia.domain.Item;
+import eu.ownyourdata.pia.service.ItemService;
+import eu.ownyourdata.pia.web.rest.mapper.ItemMapperPia;
+import eu.ownyourdata.pia.web.rest.util.HeaderUtil;
+import eu.ownyourdata.pia.web.rest.util.PaginationUtil;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import javax.validation.Valid;
+import java.net.URISyntaxException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+/**
+ * REST controller for managing Item.
+ */
+@RestController
+@RequestMapping(&quot;/api&quot;)
+<span class="fc" id="L34">public class ItemResource {</span>
+
+<span class="fc" id="L36">    private final Logger log = LoggerFactory.getLogger(ItemResource.class);</span>
+
+    @Inject
+    private ItemService itemService;
+
+    @Inject
+    private ItemMapperPia itemMapper;
+
+    /**
+     * POST  /items -&gt; Create a new item.
+     */
+    @RequestMapping(value = &quot;/items&quot;,
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity&lt;JSONObject&gt; createItem(@Valid @RequestBody JSONObject json) throws URISyntaxException {
+<span class="fc" id="L52">        log.debug(&quot;REST request to save Item : {}&quot;, json);</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (json.optLong(&quot;id&quot;) != 0) {</span>
+<span class="nc" id="L54">            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(&quot;item&quot;, &quot;idexists&quot;, &quot;A new item cannot already have an ID&quot;)).body(null);</span>
+        }
+
+<span class="fc" id="L57">        Item item = itemService.save(itemMapper.jsonToItem(json));</span>
+<span class="fc" id="L58">        return ResponseEntity.ok().body(itemMapper.itemToJson(item));</span>
+    }
+
+    /**
+     * PUT  /items -&gt; Updates an existing item.
+     */
+    @RequestMapping(value = &quot;/items&quot;,
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity&lt;JSONObject&gt; updateItem(@Valid @RequestBody JSONObject json) throws URISyntaxException {
+<span class="fc" id="L69">        log.debug(&quot;REST request to update Item : {}&quot;, json);</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (json.optLong(&quot;id&quot;) == 0) {</span>
+<span class="nc" id="L71">            return createItem(json);</span>
+        }
+
+<span class="fc" id="L74">        Item item = itemService.save(itemMapper.jsonToItem(json));</span>
+<span class="fc" id="L75">        return ResponseEntity.ok().body(itemMapper.itemToJson(item));</span>
+    }
+
+    /**
+     * GET  /items -&gt; get all the items.
+     */
+    @RequestMapping(value = &quot;/items&quot;,
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity&lt;List&lt;JSONObject&gt;&gt; getAllItems(Pageable pageable)
+        throws URISyntaxException {
+<span class="fc" id="L88">        log.debug(&quot;REST request to get a page of Items&quot;);</span>
+<span class="fc" id="L89">        Page&lt;Item&gt; page = itemService.findAll(pageable);</span>
+<span class="fc" id="L90">        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, &quot;/api/items&quot;);</span>
+<span class="fc" id="L91">        return new ResponseEntity&lt;&gt;(page.getContent().stream()</span>
+<span class="fc" id="L92">            .map(itemMapper::itemToJson)</span>
+<span class="fc" id="L93">            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);</span>
+    }
+
+    /**
+     * GET  /items/:id -&gt; get the &quot;id&quot; item.
+     */
+    @RequestMapping(value = &quot;/items/{id}&quot;,
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity&lt;JSONObject&gt; getItem(@PathVariable Long id) {
+<span class="fc" id="L104">        log.debug(&quot;REST request to get Item : {}&quot;, id);</span>
+<span class="fc" id="L105">        Item item = itemService.findOne(id);</span>
+<span class="fc" id="L106">        return Optional.ofNullable(item)</span>
+<span class="fc" id="L107">            .map(result -&gt; new ResponseEntity&lt;&gt;(</span>
+<span class="fc" id="L108">                itemMapper.itemToJson(result),</span>
+                HttpStatus.OK))
+<span class="fc" id="L110">            .orElse(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));</span>
+    }
+
+    /**
+     * DELETE  /items/:id -&gt; delete the &quot;id&quot; item.
+     */
+    @RequestMapping(value = &quot;/items/{id}&quot;,
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity&lt;Void&gt; deleteItem(@PathVariable Long id) {
+<span class="fc" id="L121">        log.debug(&quot;REST request to delete Item : {}&quot;, id);</span>
+<span class="fc" id="L122">        itemService.delete(id);</span>
+<span class="fc" id="L123">        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(&quot;item&quot;, id.toString())).build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

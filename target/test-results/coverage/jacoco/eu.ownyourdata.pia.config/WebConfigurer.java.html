@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>WebConfigurer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.config</a> &gt; <span class="el_source">WebConfigurer.java</span></div><h1>WebConfigurer.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.config;
+
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.servlet.InstrumentedFilter;
+import com.codahale.metrics.servlets.MetricsServlet;
+import eu.ownyourdata.pia.web.filter.CachingHttpHeadersFilter;
+import eu.ownyourdata.pia.web.filter.StaticResourcesProductionFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.MimeMappings;
+import org.springframework.boot.context.embedded.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.inject.Inject;
+import javax.servlet.*;
+import java.util.Arrays;
+import java.util.EnumSet;
+
+/**
+ * Configuration of web application with Servlet 3.0 APIs.
+ */
+@Configuration
+<span class="fc" id="L32">public class WebConfigurer implements ServletContextInitializer, EmbeddedServletContainerCustomizer {</span>
+
+<span class="fc" id="L34">    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);</span>
+
+    @Inject
+    private Environment env;
+
+    @Inject
+    private JHipsterProperties props;
+
+    @Autowired(required = false)
+    private MetricRegistry metricRegistry;
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+<span class="fc" id="L47">        log.info(&quot;Web application configuration, using profiles: {}&quot;, Arrays.toString(env.getActiveProfiles()));</span>
+<span class="fc" id="L48">        EnumSet&lt;DispatcherType&gt; disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (!env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {</span>
+<span class="fc" id="L50">            initMetrics(servletContext, disps);</span>
+        }
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {</span>
+<span class="nc" id="L53">            initCachingHttpHeadersFilter(servletContext, disps);</span>
+<span class="nc" id="L54">            initStaticResourcesProductionFilter(servletContext, disps);</span>
+        }
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {</span>
+<span class="nc" id="L57">            initH2Console(servletContext);</span>
+        }
+<span class="fc" id="L59">        log.info(&quot;Web application fully configured&quot;);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Set up Mime types.
+     */
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+<span class="fc" id="L67">        MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);</span>
+        // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
+<span class="fc" id="L69">        mappings.add(&quot;html&quot;, &quot;text/html;charset=utf-8&quot;);</span>
+        // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
+<span class="fc" id="L71">        mappings.add(&quot;json&quot;, &quot;text/html;charset=utf-8&quot;);</span>
+<span class="fc" id="L72">        container.setMimeMappings(mappings);</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Initializes the static resources production Filter.
+     */
+    private void initStaticResourcesProductionFilter(ServletContext servletContext,
+                                                     EnumSet&lt;DispatcherType&gt; disps) {
+
+<span class="nc" id="L81">        log.debug(&quot;Registering static resources production Filter&quot;);</span>
+<span class="nc" id="L82">        FilterRegistration.Dynamic staticResourcesProductionFilter =</span>
+<span class="nc" id="L83">            servletContext.addFilter(&quot;staticResourcesProductionFilter&quot;,</span>
+                new StaticResourcesProductionFilter());
+
+<span class="nc" id="L86">        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, &quot;/&quot;);</span>
+<span class="nc" id="L87">        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, &quot;/index.html&quot;);</span>
+<span class="nc" id="L88">        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, &quot;/assets/*&quot;);</span>
+<span class="nc" id="L89">        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, &quot;/scripts/*&quot;);</span>
+<span class="nc" id="L90">        staticResourcesProductionFilter.setAsyncSupported(true);</span>
+<span class="nc" id="L91">    }</span>
+
+    /**
+     * Initializes the caching HTTP Headers Filter.
+     */
+    private void initCachingHttpHeadersFilter(ServletContext servletContext,
+                                              EnumSet&lt;DispatcherType&gt; disps) {
+<span class="nc" id="L98">        log.debug(&quot;Registering Caching HTTP Headers Filter&quot;);</span>
+<span class="nc" id="L99">        FilterRegistration.Dynamic cachingHttpHeadersFilter =</span>
+<span class="nc" id="L100">            servletContext.addFilter(&quot;cachingHttpHeadersFilter&quot;,</span>
+                new CachingHttpHeadersFilter(env));
+
+<span class="nc" id="L103">        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, &quot;/dist/assets/*&quot;);</span>
+<span class="nc" id="L104">        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, &quot;/dist/scripts/*&quot;);</span>
+<span class="nc" id="L105">        cachingHttpHeadersFilter.setAsyncSupported(true);</span>
+<span class="nc" id="L106">    }</span>
+
+    /**
+     * Initializes Metrics.
+     */
+    private void initMetrics(ServletContext servletContext, EnumSet&lt;DispatcherType&gt; disps) {
+<span class="fc" id="L112">        log.debug(&quot;Initializing Metrics registries&quot;);</span>
+<span class="fc" id="L113">        servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,</span>
+            metricRegistry);
+<span class="fc" id="L115">        servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY,</span>
+            metricRegistry);
+
+<span class="fc" id="L118">        log.debug(&quot;Registering Metrics Filter&quot;);</span>
+<span class="fc" id="L119">        FilterRegistration.Dynamic metricsFilter = servletContext.addFilter(&quot;webappMetricsFilter&quot;,</span>
+            new InstrumentedFilter());
+
+<span class="fc" id="L122">        metricsFilter.addMappingForUrlPatterns(disps, true, &quot;/*&quot;);</span>
+<span class="fc" id="L123">        metricsFilter.setAsyncSupported(true);</span>
+
+<span class="fc" id="L125">        log.debug(&quot;Registering Metrics Servlet&quot;);</span>
+<span class="fc" id="L126">        ServletRegistration.Dynamic metricsAdminServlet =</span>
+<span class="fc" id="L127">            servletContext.addServlet(&quot;metricsServlet&quot;, new MetricsServlet());</span>
+
+<span class="fc" id="L129">        metricsAdminServlet.addMapping(&quot;/metrics/metrics/*&quot;);</span>
+<span class="fc" id="L130">        metricsAdminServlet.setAsyncSupported(true);</span>
+<span class="fc" id="L131">        metricsAdminServlet.setLoadOnStartup(2);</span>
+<span class="fc" id="L132">    }</span>
+
+    @Bean
+    public CorsFilter corsFilter() {
+<span class="fc" id="L136">        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();</span>
+<span class="fc" id="L137">        CorsConfiguration config = props.getCors();</span>
+<span class="pc bpc" id="L138" title="3 of 4 branches missed.">        if (config.getAllowedOrigins() != null &amp;&amp; !config.getAllowedOrigins().isEmpty()) {</span>
+<span class="nc" id="L139">            source.registerCorsConfiguration(&quot;/api/**&quot;, config);</span>
+<span class="nc" id="L140">            source.registerCorsConfiguration(&quot;/v2/api-docs&quot;, config);</span>
+<span class="nc" id="L141">            source.registerCorsConfiguration(&quot;/oauth/**&quot;, config);</span>
+        }
+<span class="fc" id="L143">        return new CorsFilter(source);</span>
+    }
+
+    /**
+     * Initializes H2 console
+     */
+    private void initH2Console(ServletContext servletContext) {
+<span class="nc" id="L150">        log.debug(&quot;Initialize H2 console&quot;);</span>
+<span class="nc" id="L151">        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet(&quot;H2Console&quot;, new org.h2.server.web.WebServlet());</span>
+<span class="nc" id="L152">        h2ConsoleServlet.addMapping(&quot;/h2-console/*&quot;);</span>
+<span class="nc" id="L153">        h2ConsoleServlet.setInitParameter(&quot;-properties&quot;, &quot;src/main/resources&quot;);</span>
+<span class="nc" id="L154">        h2ConsoleServlet.setLoadOnStartup(1);</span>
+<span class="nc" id="L155">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

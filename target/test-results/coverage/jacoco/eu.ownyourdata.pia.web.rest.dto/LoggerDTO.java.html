@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoggerDTO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest.dto</a> &gt; <span class="el_source">LoggerDTO.java</span></div><h1>LoggerDTO.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest.dto;
+
+import ch.qos.logback.classic.Logger;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+public class LoggerDTO {
+
+    private String name;
+
+    private String level;
+
+<span class="nc" id="L12">    public LoggerDTO(Logger logger) {</span>
+<span class="nc" id="L13">        this.name = logger.getName();</span>
+<span class="nc" id="L14">        this.level = logger.getEffectiveLevel().toString();</span>
+<span class="nc" id="L15">    }</span>
+
+    @JsonCreator
+<span class="nc" id="L18">    public LoggerDTO() {</span>
+<span class="nc" id="L19">    }</span>
+
+    public String getName() {
+<span class="nc" id="L22">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L26">        this.name = name;</span>
+<span class="nc" id="L27">    }</span>
+
+    public String getLevel() {
+<span class="nc" id="L30">        return level;</span>
+    }
+
+    public void setLevel(String level) {
+<span class="nc" id="L34">        this.level = level;</span>
+<span class="nc" id="L35">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L39">        return &quot;LoggerDTO{&quot; +</span>
+            &quot;name='&quot; + name + '\'' +
+            &quot;, level='&quot; + level + '\'' +
+            '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

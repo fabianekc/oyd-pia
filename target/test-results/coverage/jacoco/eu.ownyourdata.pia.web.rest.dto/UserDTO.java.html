@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserDTO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest.dto</a> &gt; <span class="el_source">UserDTO.java</span></div><h1>UserDTO.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest.dto;
+
+import eu.ownyourdata.pia.domain.Authority;
+import eu.ownyourdata.pia.domain.User;
+
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.*;
+import java.util.Set;
+import java.util.stream.Collectors;
+/**
+ * A DTO representing a user, with his authorities.
+ */
+public class UserDTO {
+
+    public static final int PASSWORD_MIN_LENGTH = 5;
+    public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @Pattern(regexp = &quot;^[a-z0-9]*$&quot;)
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String login;
+
+    @NotNull
+    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
+    private String password;
+
+    @Size(max = 50)
+    private String firstName;
+
+    @Size(max = 50)
+    private String lastName;
+
+    @Email
+    @Size(min = 5, max = 100)
+    private String email;
+
+<span class="fc" id="L38">    private boolean activated = false;</span>
+
+    @Size(min = 2, max = 5)
+    private String langKey;
+
+    private Set&lt;String&gt; authorities;
+
+<span class="fc" id="L45">    public UserDTO() {</span>
+<span class="fc" id="L46">    }</span>
+
+    public UserDTO(User user) {
+<span class="fc" id="L49">        this(user.getLogin(), null, user.getFirstName(), user.getLastName(),</span>
+<span class="fc" id="L50">            user.getEmail(), user.getActivated(), user.getLangKey(),</span>
+<span class="fc" id="L51">            user.getAuthorities().stream().map(Authority::getName)</span>
+<span class="fc" id="L52">                .collect(Collectors.toSet()));</span>
+<span class="fc" id="L53">    }</span>
+
+    public UserDTO(String login, String password, String firstName, String lastName,
+<span class="fc" id="L56">        String email, boolean activated, String langKey, Set&lt;String&gt; authorities) {</span>
+
+<span class="fc" id="L58">        this.login = login;</span>
+<span class="fc" id="L59">        this.password = password;</span>
+<span class="fc" id="L60">        this.firstName = firstName;</span>
+<span class="fc" id="L61">        this.lastName = lastName;</span>
+<span class="fc" id="L62">        this.email = email;</span>
+<span class="fc" id="L63">        this.activated = activated;</span>
+<span class="fc" id="L64">        this.langKey = langKey;</span>
+<span class="fc" id="L65">        this.authorities = authorities;</span>
+<span class="fc" id="L66">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L69">        return password;</span>
+    }
+
+    public String getLogin() {
+<span class="fc" id="L73">        return login;</span>
+    }
+
+    public String getFirstName() {
+<span class="fc" id="L77">        return firstName;</span>
+    }
+
+    public String getLastName() {
+<span class="fc" id="L81">        return lastName;</span>
+    }
+
+    public String getEmail() {
+<span class="fc" id="L85">        return email;</span>
+    }
+
+    public boolean isActivated() {
+<span class="fc" id="L89">        return activated;</span>
+    }
+
+    public String getLangKey() {
+<span class="fc" id="L93">        return langKey;</span>
+    }
+
+    public Set&lt;String&gt; getAuthorities() {
+<span class="fc" id="L97">        return authorities;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L102">        return &quot;UserDTO{&quot; +</span>
+            &quot;login='&quot; + login + '\'' +
+            &quot;, password='&quot; + password + '\'' +
+            &quot;, firstName='&quot; + firstName + '\'' +
+            &quot;, lastName='&quot; + lastName + '\'' +
+            &quot;, email='&quot; + email + '\'' +
+            &quot;, activated=&quot; + activated +
+            &quot;, langKey='&quot; + langKey + '\'' +
+            &quot;, authorities=&quot; + authorities +
+            &quot;}&quot;;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

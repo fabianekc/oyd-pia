@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for main/webapp/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">main/webapp/bower_components/ngInfiniteScroll/build/</a> ng-infinite-scroll.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.23% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/124</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/68</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.23% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/124</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* ng-infinite-scroll - v1.2.0 - 2015-02-14 */
+var mod;
+&nbsp;
+mod = angular.module('infinite-scroll', []);
+&nbsp;
+mod.value('THROTTLE_MILLISECONDS', null);
+&nbsp;
+mod.directive('infiniteScroll', [
+  '$rootScope', '$window', '$interval', 'THROTTLE_MILLISECONDS', <span class="fstat-no" title="function not covered" >function($rootScope, $window, $interval, THROTTLE_MILLISECONDS) {</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      scope: {
+        infiniteScroll: '&amp;',
+        infiniteScrollContainer: '=',
+        infiniteScrollDistance: '=',
+        infiniteScrollDisabled: '=',
+        infiniteScrollUseDocumentBottom: '=',
+        infiniteScrollListenForEvent: '@'
+      },
+      link: <span class="fstat-no" title="function not covered" >function(scope, elem, attrs) {</span>
+<span class="cstat-no" title="statement not covered" >        var changeContainer, checkWhenEnabled, container, handleInfiniteScrollContainer, handleInfiniteScrollDisabled, handleInfiniteScrollDistance, handleInfiniteScrollUseDocumentBottom, handler, height, immediateCheck, offsetTop, pageYOffset, scrollDistance, scrollEnabled, throttle, unregisterEventListener, useDocumentBottom, windowElement;</span>
+<span class="cstat-no" title="statement not covered" >        windowElement = angular.element($window);</span>
+<span class="cstat-no" title="statement not covered" >        scrollDistance = null;</span>
+<span class="cstat-no" title="statement not covered" >        scrollEnabled = null;</span>
+<span class="cstat-no" title="statement not covered" >        checkWhenEnabled = null;</span>
+<span class="cstat-no" title="statement not covered" >        container = null;</span>
+<span class="cstat-no" title="statement not covered" >        immediateCheck = true;</span>
+<span class="cstat-no" title="statement not covered" >        useDocumentBottom = false;</span>
+<span class="cstat-no" title="statement not covered" >        unregisterEventListener = null;</span>
+<span class="cstat-no" title="statement not covered" >        height = <span class="fstat-no" title="function not covered" >function(elem) {</span></span>
+<span class="cstat-no" title="statement not covered" >          elem = elem[0] || elem;</span>
+<span class="cstat-no" title="statement not covered" >          if (isNaN(elem.offsetHeight)) {</span>
+<span class="cstat-no" title="statement not covered" >            return elem.document.documentElement.clientHeight;</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            return elem.offsetHeight;</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        offsetTop = <span class="fstat-no" title="function not covered" >function(elem) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (!elem[0].getBoundingClientRect || elem.css('none')) {</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return elem[0].getBoundingClientRect().top + pageYOffset(elem);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        pageYOffset = <span class="fstat-no" title="function not covered" >function(elem) {</span></span>
+<span class="cstat-no" title="statement not covered" >          elem = elem[0] || elem;</span>
+<span class="cstat-no" title="statement not covered" >          if (isNaN(window.pageYOffset)) {</span>
+<span class="cstat-no" title="statement not covered" >            return elem.document.documentElement.scrollTop;</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            return elem.ownerDocument.defaultView.pageYOffset;</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        handler = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          var containerBottom, containerTopOffset, elementBottom, remaining, shouldScroll;</span>
+<span class="cstat-no" title="statement not covered" >          if (container === windowElement) {</span>
+<span class="cstat-no" title="statement not covered" >            containerBottom = height(container) + pageYOffset(container[0].document.documentElement);</span>
+<span class="cstat-no" title="statement not covered" >            elementBottom = offsetTop(elem) + height(elem);</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            containerBottom = height(container);</span>
+<span class="cstat-no" title="statement not covered" >            containerTopOffset = 0;</span>
+<span class="cstat-no" title="statement not covered" >            if (offsetTop(container) !== void 0) {</span>
+<span class="cstat-no" title="statement not covered" >              containerTopOffset = offsetTop(container);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            elementBottom = offsetTop(elem) - containerTopOffset + height(elem);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (useDocumentBottom) {</span>
+<span class="cstat-no" title="statement not covered" >            elementBottom = height((elem[0].ownerDocument || elem[0].document).documentElement);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          remaining = elementBottom - containerBottom;</span>
+<span class="cstat-no" title="statement not covered" >          shouldScroll = remaining &lt;= height(container) * scrollDistance + 1;</span>
+<span class="cstat-no" title="statement not covered" >          if (shouldScroll) {</span>
+<span class="cstat-no" title="statement not covered" >            checkWhenEnabled = true;</span>
+<span class="cstat-no" title="statement not covered" >            if (scrollEnabled) {</span>
+<span class="cstat-no" title="statement not covered" >              if (scope.$$phase || $rootScope.$$phase) {</span>
+<span class="cstat-no" title="statement not covered" >                return scope.infiniteScroll();</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                return scope.$apply(scope.infiniteScroll);</span>
+              }
+            }
+          } else {
+<span class="cstat-no" title="statement not covered" >            return checkWhenEnabled = false;</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        throttle = <span class="fstat-no" title="function not covered" >function(func, wait) {</span></span>
+<span class="cstat-no" title="statement not covered" >          var later, previous, timeout;</span>
+<span class="cstat-no" title="statement not covered" >          timeout = null;</span>
+<span class="cstat-no" title="statement not covered" >          previous = 0;</span>
+<span class="cstat-no" title="statement not covered" >          later = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            var context;</span>
+<span class="cstat-no" title="statement not covered" >            previous = new Date().getTime();</span>
+<span class="cstat-no" title="statement not covered" >            $interval.cancel(timeout);</span>
+<span class="cstat-no" title="statement not covered" >            timeout = null;</span>
+<span class="cstat-no" title="statement not covered" >            func.call();</span>
+<span class="cstat-no" title="statement not covered" >            return context = null;</span>
+          };
+<span class="cstat-no" title="statement not covered" >          return <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            var now, remaining;</span>
+<span class="cstat-no" title="statement not covered" >            now = new Date().getTime();</span>
+<span class="cstat-no" title="statement not covered" >            remaining = wait - (now - previous);</span>
+<span class="cstat-no" title="statement not covered" >            if (remaining &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >              clearTimeout(timeout);</span>
+<span class="cstat-no" title="statement not covered" >              $interval.cancel(timeout);</span>
+<span class="cstat-no" title="statement not covered" >              timeout = null;</span>
+<span class="cstat-no" title="statement not covered" >              previous = now;</span>
+<span class="cstat-no" title="statement not covered" >              return func.call();</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >              if (!timeout) {</span>
+<span class="cstat-no" title="statement not covered" >                return timeout = $interval(later, remaining, 1);</span>
+              }
+            }
+          };
+        };
+<span class="cstat-no" title="statement not covered" >        if (THROTTLE_MILLISECONDS != null) {</span>
+<span class="cstat-no" title="statement not covered" >          handler = throttle(handler, THROTTLE_MILLISECONDS);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        scope.$on('$destroy', <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          container.unbind('scroll', handler);</span>
+<span class="cstat-no" title="statement not covered" >          if (unregisterEventListener != null) {</span>
+<span class="cstat-no" title="statement not covered" >            unregisterEventListener();</span>
+<span class="cstat-no" title="statement not covered" >            return unregisterEventListener = null;</span>
+          }
+        });
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollDistance = <span class="fstat-no" title="function not covered" >function(v) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return scrollDistance = parseFloat(v) || 0;</span>
+        };
+<span class="cstat-no" title="statement not covered" >        scope.$watch('infiniteScrollDistance', handleInfiniteScrollDistance);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollDistance(scope.infiniteScrollDistance);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollDisabled = <span class="fstat-no" title="function not covered" >function(v) {</span></span>
+<span class="cstat-no" title="statement not covered" >          scrollEnabled = !v;</span>
+<span class="cstat-no" title="statement not covered" >          if (scrollEnabled &amp;&amp; checkWhenEnabled) {</span>
+<span class="cstat-no" title="statement not covered" >            checkWhenEnabled = false;</span>
+<span class="cstat-no" title="statement not covered" >            return handler();</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        scope.$watch('infiniteScrollDisabled', handleInfiniteScrollDisabled);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollDisabled(scope.infiniteScrollDisabled);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollUseDocumentBottom = <span class="fstat-no" title="function not covered" >function(v) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return useDocumentBottom = v;</span>
+        };
+<span class="cstat-no" title="statement not covered" >        scope.$watch('infiniteScrollUseDocumentBottom', handleInfiniteScrollUseDocumentBottom);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollUseDocumentBottom(scope.infiniteScrollUseDocumentBottom);</span>
+<span class="cstat-no" title="statement not covered" >        changeContainer = <span class="fstat-no" title="function not covered" >function(newContainer) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (container != null) {</span>
+<span class="cstat-no" title="statement not covered" >            container.unbind('scroll', handler);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          container = newContainer;</span>
+<span class="cstat-no" title="statement not covered" >          if (newContainer != null) {</span>
+<span class="cstat-no" title="statement not covered" >            return container.bind('scroll', handler);</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        changeContainer(windowElement);</span>
+<span class="cstat-no" title="statement not covered" >        if (scope.infiniteScrollListenForEvent) {</span>
+<span class="cstat-no" title="statement not covered" >          unregisterEventListener = $rootScope.$on(scope.infiniteScrollListenForEvent, handler);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollContainer = <span class="fstat-no" title="function not covered" >function(newContainer) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if ((newContainer == null) || newContainer.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (newContainer instanceof HTMLElement) {</span>
+<span class="cstat-no" title="statement not covered" >            newContainer = angular.element(newContainer);</span>
+          } else <span class="cstat-no" title="statement not covered" >if (typeof newContainer.append === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >            newContainer = angular.element(newContainer[newContainer.length - 1]);</span>
+          } else <span class="cstat-no" title="statement not covered" >if (typeof newContainer === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >            newContainer = angular.element(document.querySelector(newContainer));</span>
+          }
+<span class="cstat-no" title="statement not covered" >          if (newContainer != null) {</span>
+<span class="cstat-no" title="statement not covered" >            return changeContainer(newContainer);</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            throw new Exception("invalid infinite-scroll-container attribute.");</span>
+          }
+        };
+<span class="cstat-no" title="statement not covered" >        scope.$watch('infiniteScrollContainer', handleInfiniteScrollContainer);</span>
+<span class="cstat-no" title="statement not covered" >        handleInfiniteScrollContainer(scope.infiniteScrollContainer || []);</span>
+<span class="cstat-no" title="statement not covered" >        if (attrs.infiniteScrollParent != null) {</span>
+<span class="cstat-no" title="statement not covered" >          changeContainer(angular.element(elem.parent()));</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (attrs.infiniteScrollImmediateCheck != null) {</span>
+<span class="cstat-no" title="statement not covered" >          immediateCheck = scope.$eval(attrs.infiniteScrollImmediateCheck);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return $interval((<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (immediateCheck) {</span>
+<span class="cstat-no" title="statement not covered" >            return handler();</span>
+          }
+        }), 0, 1);
+      }
+    };
+  }
+]);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 25 2016 00:02:24 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

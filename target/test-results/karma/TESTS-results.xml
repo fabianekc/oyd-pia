@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<testsuites>
+  <testsuite name="PhantomJS 1.9.8 (Mac OS X 0.0.0)" package="" timestamp="2016-04-24T22:02:21" id="0" hostname="Christophs-MBP.fritz.box" make_target="undefined" tests="44" errors="0" failures="0" time="1.208">
+    <properties>
+      <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.8 Safari/534.34"/>
+    </properties>
+    <testcase name="calls Auth.activateAccount with the key from stateParams" time="0.075" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|ActivationController"/>
+    <testcase name="should set set success to OK upon successful activation" time="0.027" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|ActivationController"/>
+    <testcase name="should set set error to ERROR upon activation failure" time="0.025" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|ActivationController"/>
+    <testcase name="should set remember Me" time="0.026" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|LoginController"/>
+    <testcase name="should show error if passwords do not match" time="0.019" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|PasswordController"/>
+    <testcase name="should call Auth.changePassword when passwords match" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|PasswordController"/>
+    <testcase name="should set success to OK upon success" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|PasswordController"/>
+    <testcase name="should notify of error if change password fails" time="0.025" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|PasswordController"/>
+    <testcase name="Should display the password strength bar" time="0.03" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Directive Tests|Password strength"/>
+    <testcase name="Should change the first 2 points of the strength bar" time="0.054" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Directive Tests|Password strength"/>
+    <testcase name="Should change the first 4 points of the strength bar" time="0.035" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Directive Tests|Password strength"/>
+    <testcase name="should ensure the two passwords entered match" time="0.024" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RegisterController"/>
+    <testcase name="should update success to OK after creating an account" time="0.025" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RegisterController"/>
+    <testcase name="should notify of user existence upon 400/login already in use" time="0.024" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RegisterController"/>
+    <testcase name="should notify of email existence upon 400/e-mail address already in use" time="0.024" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RegisterController"/>
+    <testcase name="should notify of generic error" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RegisterController"/>
+    <testcase name="should define its initial state" time="0.02" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|ResetFinishController"/>
+    <testcase name="registers a timeout handler set set focus" time="0.022" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|ResetFinishController"/>
+    <testcase name="should define its initial state" time="0.022" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RequestResetController"/>
+    <testcase name="registers a timeout handler set set focus" time="0.019" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RequestResetController"/>
+    <testcase name="notifies of success upon successful requestReset" time="0.024" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RequestResetController"/>
+    <testcase name="notifies of unknown email upon e-mail address not registered/400" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RequestResetController"/>
+    <testcase name="notifies of error upon error response" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|RequestResetController"/>
+    <testcase name="should send the current identity upon save" time="0.054" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|SettingsController"/>
+    <testcase name="should notify of success upon successful save" time="0.031" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|SettingsController"/>
+    <testcase name="should notify of error upon failed save" time="0.028" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|SettingsController"/>
+    <testcase name="should verify empty object is not a health property leaf" time="0.025" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|isHealthObject and hasSubSystem"/>
+    <testcase name="should verify object with property status and no subsystems is a health property leaf" time="0.026" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|isHealthObject and hasSubSystem"/>
+    <testcase name="should verify that object property status and unrecognized objects is a health property leaf" time="0.021" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|isHealthObject and hasSubSystem"/>
+    <testcase name="should verify object with property status but with subsystems is NOT a health property leaf" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|isHealthObject and hasSubSystem"/>
+    <testcase name="should flatten empty health data" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|transformHealthData"/>
+    <testcase name="should flatten health data with no subsystems" time="0.028" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|transformHealthData"/>
+    <testcase name="should flatten health data with subsystems at level 1, main system has no additional information" time="0.024" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|transformHealthData"/>
+    <testcase name="should flatten health data with subsystems at level 1, main system has additional information" time="0.022" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|transformHealthData"/>
+    <testcase name="should flatten health data with subsystems at level 1, main system has additional error" time="0.023" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|transformHealthData"/>
+    <testcase name="should show both path and name if defined" time="0.021" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|getModuleName(path, name)"/>
+    <testcase name="should show only path if name is not defined" time="0.02" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|getModuleName(path, name)"/>
+    <testcase name="should show only name if path is not defined" time="0.019" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|getModuleName(path, name)"/>
+    <testcase name="should show empty string if neither name nor path is defined" time="0.019" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|HealthController|getModuleName(path, name)"/>
+    <testcase name="Unregisters root scope listener upon scope destruction" time="0.02" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|Item Detail Controller|Root Scope Listening"/>
+    <testcase name="Unregisters root scope listener upon scope destruction" time="0.02" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|Plugin Detail Controller|Root Scope Listening"/>
+    <testcase name="Unregisters root scope listener upon scope destruction" time="0.02" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|Repo Detail Controller|Root Scope Listening"/>
+    <testcase name="Unregisters root scope listener upon scope destruction" time="0.021" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Controller Tests|Store Detail Controller|Root Scope Listening"/>
+    <testcase name="should call backend on logout then call authServerProvider.logout" time="0.085" classname="." package="PhantomJS 1.9.8 (Mac OS X 0.0.0)" parentSuites="Service Tests|Auth"/>
+    <system-out><![CDATA[PhantomJS 1.9.8 (Mac OS X 0.0.0) DUMP: 'background-color: rgb(153, 255, 0); '
+
+]]></system-out>
+    <system-err/>
+  </testsuite>
+</testsuites>

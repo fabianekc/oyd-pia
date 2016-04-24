@@ -1,0 +1,281 @@
+{
+  "groups": [
+    {
+      "name": "jhipster",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties"
+    },
+    {
+      "name": "jhipster.async",
+      "sourceMethod": "getAsync()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Async"
+    },
+    {
+      "name": "jhipster.cache",
+      "sourceMethod": "getCache()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Cache"
+    },
+    {
+      "name": "jhipster.cache.ehcache",
+      "sourceMethod": "getEhcache()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Cache",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Cache$Ehcache"
+    },
+    {
+      "name": "jhipster.datasource",
+      "sourceMethod": "getDatasource()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Datasource"
+    },
+    {
+      "name": "jhipster.http",
+      "sourceMethod": "getHttp()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Http"
+    },
+    {
+      "name": "jhipster.http.cache",
+      "sourceMethod": "getCache()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Http",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Http$Cache"
+    },
+    {
+      "name": "jhipster.mail",
+      "sourceMethod": "getMail()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Mail"
+    },
+    {
+      "name": "jhipster.metrics",
+      "sourceMethod": "getMetrics()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics"
+    },
+    {
+      "name": "jhipster.metrics.graphite",
+      "sourceMethod": "getGraphite()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Graphite"
+    },
+    {
+      "name": "jhipster.metrics.jmx",
+      "sourceMethod": "getJmx()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Jmx"
+    },
+    {
+      "name": "jhipster.metrics.spark",
+      "sourceMethod": "getSpark()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Spark"
+    },
+    {
+      "name": "jhipster.security",
+      "sourceMethod": "getSecurity()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Security"
+    },
+    {
+      "name": "jhipster.security.authentication",
+      "sourceMethod": "getAuthentication()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication"
+    },
+    {
+      "name": "jhipster.security.authentication.oauth",
+      "sourceMethod": "getOauth()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication$Oauth"
+    },
+    {
+      "name": "jhipster.security.rememberme",
+      "sourceMethod": "getRememberme()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Rememberme"
+    },
+    {
+      "name": "jhipster.swagger",
+      "sourceMethod": "getSwagger()",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties",
+      "type": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger"
+    }
+  ],
+  "hints": [],
+  "properties": [
+    {
+      "defaultValue": 2,
+      "name": "jhipster.async.core-pool-size",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 50,
+      "name": "jhipster.async.max-pool-size",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 10000,
+      "name": "jhipster.async.queue-capacity",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Async",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "16M",
+      "name": "jhipster.cache.ehcache.max-bytes-local-heap",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Cache$Ehcache",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 3600,
+      "name": "jhipster.cache.time-to-live-seconds",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Cache",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.datasource.cache-prep-stmts",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": 250,
+      "name": "jhipster.datasource.prep-stmt-cache-size",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": 2048,
+      "name": "jhipster.datasource.prep-stmt-cache-sql-limit",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.datasource.use-server-prep-stmts",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Datasource",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": 31,
+      "name": "jhipster.http.cache.time-to-live-in-days",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Http$Cache",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "pia@localhost",
+      "name": "jhipster.mail.from",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Mail",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.metrics.graphite.enabled",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "localhost",
+      "name": "jhipster.metrics.graphite.host",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 2003,
+      "name": "jhipster.metrics.graphite.port",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.Integer"
+    },
+    {
+      "defaultValue": "pia",
+      "name": "jhipster.metrics.graphite.prefix",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Graphite",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": true,
+      "name": "jhipster.metrics.jmx.enabled",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Jmx",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": false,
+      "name": "jhipster.metrics.spark.enabled",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "defaultValue": "localhost",
+      "name": "jhipster.metrics.spark.host",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 9999,
+      "name": "jhipster.metrics.spark.port",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Metrics$Spark",
+      "type": "java.lang.Integer"
+    },
+    {
+      "name": "jhipster.security.authentication.oauth.clientid",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication$Oauth",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.security.authentication.oauth.secret",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication$Oauth",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": 1800,
+      "name": "jhipster.security.authentication.oauth.token-validity-in-seconds",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Authentication$Oauth",
+      "type": "java.lang.Integer"
+    },
+    {
+      "name": "jhipster.security.rememberme.key",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Security$Rememberme",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.contact",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "pia API documentation",
+      "name": "jhipster.swagger.description",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.license",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.license-url",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "jhipster.swagger.terms-of-service-url",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "pia API",
+      "name": "jhipster.swagger.title",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    },
+    {
+      "defaultValue": "0.0.1",
+      "name": "jhipster.swagger.version",
+      "sourceType": "eu.ownyourdata.pia.config.JHipsterProperties$Swagger",
+      "type": "java.lang.String"
+    }
+  ]
+}

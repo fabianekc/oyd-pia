@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RepoServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.service.impl</a> &gt; <span class="el_source">RepoServiceImpl.java</span></div><h1>RepoServiceImpl.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.service.impl;
+
+import eu.ownyourdata.pia.domain.Repo;
+import eu.ownyourdata.pia.domain.RepoItemCount;
+import eu.ownyourdata.pia.repository.RepoRepository;
+import eu.ownyourdata.pia.service.RepoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Optional;
+
+/**
+ * Service Implementation for managing Repo.
+ */
+@Service
+@Transactional
+<span class="fc" id="L23">public class RepoServiceImpl implements RepoService{</span>
+
+<span class="fc" id="L25">    private final Logger log = LoggerFactory.getLogger(RepoServiceImpl.class);</span>
+
+    @Inject
+    private RepoRepository repoRepository;
+
+    /**
+     * Save a repo.
+     * @return the persisted entity
+     */
+    public Repo save(Repo repo) {
+<span class="fc" id="L35">        log.debug(&quot;Request to save Repo : {}&quot;, repo);</span>
+<span class="fc" id="L36">        Repo result = repoRepository.save(repo);</span>
+<span class="fc" id="L37">        return result;</span>
+    }
+
+    /**
+     *  get all the repos.
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page&lt;Repo&gt; findAll(Pageable pageable) {
+<span class="fc" id="L46">        log.debug(&quot;Request to get all Repos&quot;);</span>
+<span class="fc" id="L47">        Page&lt;Repo&gt; result = repoRepository.findAll(pageable);</span>
+<span class="fc" id="L48">        return result;</span>
+    }
+
+    /**
+     *  get one repo by id.
+     *  @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Repo findOne(Long id) {
+<span class="fc" id="L57">        log.debug(&quot;Request to get Repo : {}&quot;, id);</span>
+<span class="fc" id="L58">        Repo repo = repoRepository.findOne(id);</span>
+<span class="fc" id="L59">        return repo;</span>
+    }
+
+    public Optional&lt;Repo&gt; findOneByIdentifier(String identifier) {
+<span class="fc" id="L63">        log.debug(&quot;Request to get Repo : {}&quot;,identifier);</span>
+<span class="fc" id="L64">        return repoRepository.findOneByIdentifier(identifier);</span>
+    }
+
+    public Repo getByIdentifier(String identifier, Repo defaultValue) {
+<span class="fc" id="L68">        Optional&lt;Repo&gt; existing = repoRepository.findOneByIdentifier(identifier);</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        return existing.isPresent() ? existing.get() : repoRepository.save(defaultValue);</span>
+    }
+
+    /**
+     *  delete the  repo by id.
+     */
+    public void delete(Long id) {
+<span class="fc" id="L77">        log.debug(&quot;Request to delete Repo : {}&quot;, id);</span>
+<span class="fc" id="L78">        repoRepository.delete(id);</span>
+<span class="fc" id="L79">    }</span>
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection&lt;RepoItemCount&gt; getRepoItemCounts() {
+<span class="fc" id="L84">        return repoRepository.getRepoItemCounts();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

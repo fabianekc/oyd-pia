@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JSR310DateTimeSerializer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain.util</a> &gt; <span class="el_source">JSR310DateTimeSerializer.java</span></div><h1>JSR310DateTimeSerializer.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain.util;
+
+import java.io.IOException;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+public final class JSR310DateTimeSerializer extends JsonSerializer&lt;TemporalAccessor&gt; {
+
+<span class="fc" id="L14">    private static final DateTimeFormatter ISOFormatter =</span>
+<span class="fc" id="L15">        DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of(&quot;Z&quot;));</span>
+
+<span class="fc" id="L17">    public static final JSR310DateTimeSerializer INSTANCE = new JSR310DateTimeSerializer();</span>
+
+<span class="fc" id="L19">    private JSR310DateTimeSerializer() {}</span>
+
+    @Override
+    public void serialize(TemporalAccessor value, JsonGenerator generator, SerializerProvider serializerProvider) throws IOException {
+<span class="nc" id="L23">        generator.writeString(ISOFormatter.format(value));</span>
+<span class="nc" id="L24">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

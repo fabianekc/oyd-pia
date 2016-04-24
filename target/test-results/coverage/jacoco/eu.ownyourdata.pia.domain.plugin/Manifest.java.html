@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Manifest.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.domain.plugin</a> &gt; <span class="el_source">Manifest.java</span></div><h1>Manifest.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.domain.plugin;
+
+import eu.ownyourdata.pia.domain.InvalidManifestException;
+import org.apache.commons.lang3.Validate;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Created by michael on 26.02.16.
+ */
+public class Manifest {
+    private String identifier;
+
+    private String description;
+
+    private String type;
+
+    private String name;
+
+    private String installCommand;
+
+    private String startCommand;
+
+    private String modules;
+
+<span class="fc" id="L31">    private List&lt;String&gt; permissions = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L33">    private List&lt;String&gt; requires = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L35">    private Manifest() {</span>
+
+<span class="fc" id="L37">    }</span>
+
+    public String getIdentifier() {
+<span class="fc" id="L40">        return identifier;</span>
+    }
+
+    public String getDescription() {
+<span class="nc" id="L44">        return description;</span>
+    }
+
+    public List&lt;String&gt; getPermissions() {
+<span class="fc" id="L48">        return permissions;</span>
+    }
+
+    public String getInstallCommand() {
+<span class="fc" id="L52">        return installCommand;</span>
+    }
+
+    public String getStartCommand() {
+<span class="fc" id="L56">        return startCommand;</span>
+    }
+
+    public String getType() {
+<span class="fc" id="L60">        return type;</span>
+    }
+
+    public String getName() {
+<span class="fc" id="L64">        return name;</span>
+    }
+
+    public String getModules() {
+<span class="fc" id="L68">        return modules;</span>
+    }
+
+    public List&lt;String&gt; getRequires() {
+<span class="fc" id="L72">        return requires;</span>
+    }
+
+<span class="fc" id="L75">    public static class ManifestBuilder {</span>
+
+<span class="fc" id="L77">        private Manifest manifest = new Manifest();</span>
+
+        private Exception exception;
+
+        public ManifestBuilder withJSON(String json) {
+            try {
+<span class="nc" id="L83">                return with(new JSONObject(json));</span>
+<span class="nc" id="L84">            } catch (JSONException e) {</span>
+<span class="nc" id="L85">                exception = e;</span>
+            }
+<span class="nc" id="L87">            return this;</span>
+        }
+
+        public ManifestBuilder with(JSONObject jsonObject) {
+<span class="nc" id="L91">            manifest.identifier = jsonObject.optString(&quot;identifier&quot;);</span>
+<span class="nc" id="L92">            manifest.name = jsonObject.optString(&quot;name&quot;);</span>
+<span class="nc" id="L93">            manifest.type = jsonObject.optString(&quot;type&quot;);</span>
+<span class="nc" id="L94">            manifest.description = jsonObject.optString(&quot;description&quot;);</span>
+<span class="nc" id="L95">            manifest.startCommand = jsonObject.optString(&quot;startCommand&quot;);</span>
+<span class="nc" id="L96">            manifest.installCommand = jsonObject.optString(&quot;installCommand&quot;);</span>
+<span class="nc" id="L97">            manifest.modules = jsonObject.optString(&quot;modules&quot;);</span>
+
+<span class="nc" id="L99">            withPermissions(jsonObject.optJSONArray(&quot;permissions&quot;));</span>
+<span class="nc" id="L100">            withRequirements(jsonObject.optJSONArray(&quot;requires&quot;));</span>
+
+<span class="nc" id="L102">            return this;</span>
+        }
+
+
+        private ManifestBuilder withPermissions(JSONArray permissions) {
+            try {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                if (permissions != null) {</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">                    for (int i = 0; i &lt; permissions.length(); i++) {</span>
+<span class="nc" id="L110">                        manifest.permissions.add(permissions.getString(i));</span>
+                    }
+                }
+<span class="nc" id="L113">            } catch (JSONException e) {</span>
+<span class="nc" id="L114">                exception = e;</span>
+<span class="nc" id="L115">            }</span>
+<span class="nc" id="L116">            return this;</span>
+        }
+
+        private ManifestBuilder withRequirements(JSONArray requirements) {
+            try {
+<span class="nc bnc" id="L121" title="All 2 branches missed.">                if (requirements != null) {</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">                    for (int i = 0; i &lt; requirements.length(); i++) {</span>
+<span class="nc" id="L123">                        manifest.requires.add(requirements.getString(i));</span>
+                    }
+                }
+<span class="nc" id="L126">            } catch (JSONException e) {</span>
+<span class="nc" id="L127">                exception = e;</span>
+<span class="nc" id="L128">            }</span>
+<span class="nc" id="L129">            return this;</span>
+        }
+
+        public ManifestBuilder withIdentifier(String identifier) {
+<span class="fc" id="L133">            manifest.identifier = identifier;</span>
+<span class="fc" id="L134">            return this;</span>
+        }
+
+        public ManifestBuilder withName(String name) {
+<span class="fc" id="L138">            manifest.name = name;</span>
+<span class="fc" id="L139">            return this;</span>
+        }
+
+        public ManifestBuilder withDescription(String description) {
+<span class="nc" id="L143">            manifest.description = description;</span>
+<span class="nc" id="L144">            return this;</span>
+        }
+
+        public ManifestBuilder withType(String type) {
+<span class="fc" id="L148">            manifest.type = type;</span>
+<span class="fc" id="L149">            return this;</span>
+        }
+
+        public ManifestBuilder withStartCommand(String startCommand) {
+<span class="fc" id="L153">            manifest.startCommand = startCommand;</span>
+<span class="fc" id="L154">            return this;</span>
+        }
+
+        public ManifestBuilder withModules(String modules) {
+<span class="fc" id="L158">            manifest.modules = modules;</span>
+<span class="fc" id="L159">            return this;</span>
+        }
+
+        public ManifestBuilder withRequirements(String... requirements) {
+<span class="fc" id="L163">            Collections.addAll(manifest.requires, requirements);</span>
+<span class="fc" id="L164">            return this;</span>
+        }
+
+        public ManifestBuilder withPermissions(String... permissions) {
+<span class="nc" id="L168">            Collections.addAll(manifest.permissions, permissions);</span>
+<span class="nc" id="L169">            return this;</span>
+        }
+
+        public Manifest build() throws InvalidManifestException {
+            try {
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">                if (exception != null) {</span>
+<span class="nc" id="L175">                    throw new InvalidManifestException(exception);</span>
+                }
+<span class="fc" id="L177">                Validate.notBlank(manifest.identifier, &quot;manifests identifier must not be blank&quot;);</span>
+<span class="fc" id="L178">                Validate.notBlank(manifest.name, &quot;manifests name must not be blank&quot;);</span>
+<span class="fc" id="L179">                Validate.notBlank(manifest.type, &quot;manifests type must not be blank&quot;);</span>
+
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                if (manifest.type.equals(&quot;host&quot;)) {</span>
+<span class="fc" id="L182">                    Validate.notBlank(manifest.startCommand, &quot;hosts startCommand must not be blank&quot;);</span>
+<span class="fc" id="L183">                    Validate.notBlank(manifest.modules, &quot;hosts modules must not be blank&quot;);</span>
+                }
+
+<span class="fc bfc" id="L186" title="All 2 branches covered.">                if (manifest.type.equals(&quot;hosted&quot;)) {</span>
+<span class="fc" id="L187">                    Validate.notEmpty(manifest.requires);</span>
+                }
+
+<span class="fc" id="L190">                return manifest;</span>
+<span class="fc" id="L191">            } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L192">                throw new InvalidManifestException(e);</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

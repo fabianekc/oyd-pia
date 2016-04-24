@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AuditResource.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pia</a> &gt; <a href="index.source.html" class="el_package">eu.ownyourdata.pia.web.rest</a> &gt; <span class="el_source">AuditResource.java</span></div><h1>AuditResource.java</h1><pre class="source lang-java linenums">package eu.ownyourdata.pia.web.rest;
+
+import eu.ownyourdata.pia.service.AuditEventService;
+import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import java.time.LocalDate;
+import java.util.List;
+
+/**
+ * REST controller for getting the audit events.
+ */
+@RestController
+@RequestMapping(value = &quot;/api/audits&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AuditResource {
+
+    private AuditEventService auditEventService;
+
+    @Inject
+<span class="fc" id="L25">    public AuditResource(AuditEventService auditEventService) {</span>
+<span class="fc" id="L26">        this.auditEventService = auditEventService;</span>
+<span class="fc" id="L27">    }</span>
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List&lt;AuditEvent&gt; getAll() {
+<span class="fc" id="L31">        return auditEventService.findAll();</span>
+    }
+
+    @RequestMapping(method = RequestMethod.GET,
+        params = {&quot;fromDate&quot;, &quot;toDate&quot;})
+    public List&lt;AuditEvent&gt; getByDates(
+        @RequestParam(value = &quot;fromDate&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+        @RequestParam(value = &quot;toDate&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+
+<span class="nc" id="L40">        return auditEventService.findByDates(fromDate.atTime(0, 0), toDate.atTime(23, 59));</span>
+    }
+
+    @RequestMapping(value = &quot;/{id:.+}&quot;,
+        method = RequestMethod.GET)
+    public ResponseEntity&lt;AuditEvent&gt; get(@PathVariable Long id) {
+<span class="fc" id="L46">        return auditEventService.find(id)</span>
+<span class="fc" id="L47">                .map((entity) -&gt; new ResponseEntity&lt;&gt;(entity, HttpStatus.OK))</span>
+<span class="fc" id="L48">                .orElse(new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

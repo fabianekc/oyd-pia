@@ -1,0 +1,13 @@
+eu/ownyourdata/pia/security/SecurityUtilsUnitTest.class
+eu/ownyourdata/pia/web/rest/AuditResourceIntTest.class
+eu/ownyourdata/pia/web/rest/ItemResourceIntTest.class
+eu/ownyourdata/pia/web/rest/PluginResourceIntTest.class
+eu/ownyourdata/pia/web/rest/StoreResourceIntTest.class
+eu/ownyourdata/pia/web/rest/TestUtil.class
+eu/ownyourdata/pia/domain/plugin/ManifestBuilderTest.class
+eu/ownyourdata/pia/service/impl/RepoServiceImplTest.class
+eu/ownyourdata/pia/service/UserServiceIntTest.class
+eu/ownyourdata/pia/web/rest/AccountResourceIntTest.class
+eu/ownyourdata/pia/domain/plugin/PluginFactoryTest.class
+eu/ownyourdata/pia/web/rest/UserResourceIntTest.class
+eu/ownyourdata/pia/web/rest/RepoResourceIntTest.class
