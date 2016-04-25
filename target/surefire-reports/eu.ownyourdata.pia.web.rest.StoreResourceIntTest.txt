@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: eu.ownyourdata.pia.web.rest.StoreResourceIntTest
--------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.214 sec - in eu.ownyourdata.pia.web.rest.StoreResourceIntTest
